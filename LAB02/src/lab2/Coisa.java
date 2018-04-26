@@ -1,5 +1,18 @@
 package lab2;
 
+/**
+
+* Representação de um sistema capaz de gerenciar o uso dos laboratórios de Ciência da Computação
+* e sua vida acadêmica. O Coisa se trata de um sistema complexo que permite o controle de 4 ati-
+* vidades básicas: organizar as contas nos LCCs (Classe ContaLaboratorio), estudar para as dis-
+* ciplinas (Classe Disciplina), organizar suas contas na cantina (Classe ContaCantina) e acom-
+* panhar sua saúde física e mental (Classe Saude).
+*
+
+* @author Walisson Farias
+
+*/
+
 public class Coisa {
 
 	public static void main(String[] args) {
