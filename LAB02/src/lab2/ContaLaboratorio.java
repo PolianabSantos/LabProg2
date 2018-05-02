@@ -1,48 +1,33 @@
 package lab2;
 
 /**
-
-* Essa classe é responsável por manter o registro da quantidade de espaço utilizado em determinado
-* laboratório.
-*
-
-* @author Walisson Farias
+* Essa classe é responsável por manter o registro da quantidade de espaço utilizado em 
+* determinado laboratório.
+* @author Walisson Farias - 117210716
 */
 
 public class ContaLaboratorio {
 	
-	 /**
-	   * Atributo responsável pelo nome do laboratório
-	   */
-	
 	private String nomeLaboratorio;
-	
-	 /**
-	   * Atributo responsável pelo espaço ocupado pelo usuário
-	   */
-	
 	private int espacoOcupado;
-	
-	 /**
-	   * Atributo responsável pela cota (que é o limite de espaço disponível no sistema)
-	   */
 	private int cota;
 	
 	 /**
 	   * Constrói uma conta de laboratório a partir do seu nome
 	   * Nesse construtor o espaço ocupado pelo usuário é 0
-	   * O espaço disponível no sistema é de 2000.
+	   * O espaço disponível no sistema é de 2000
+	   * @param nomeLaboratorio o nome do laboratório
 	   */
 	
 	public ContaLaboratorio(String nomeLaboratorio) {
-		this.nomeLaboratorio = nomeLaboratorio;
-		this.espacoOcupado = 0;
-		this.cota = 2000;
+		this(nomeLaboratorio, 2000);
 	}
 	
 	 /**
 	   * Constrói também uma conta de laboratório a partir do seu nome e da sua cota
-	   * Nesse construtor, a cota não é por padrão 2000.
+	   * Nesse construtor, a cota não é por padrão 2000
+	   * @param nomeLaboratorio o nome do laboratório
+	   * @param cota o limite de espaço disponível no sistema
 	   */
 	
 	public ContaLaboratorio(String nomeLaboratorio, int cota) {
@@ -67,7 +52,6 @@ public class ContaLaboratorio {
 	   * atual do espaço ocupado.
 	   */
 	
-	
 	public void liberaEspaco(int mbytes) {
 		this.espacoOcupado -= mbytes;
 	}
@@ -75,8 +59,9 @@ public class ContaLaboratorio {
 	 /**
 	   * O método 'atingiuCota' retorna um valor boolean (verdadeiro ou falso).
 	   * Se o espaço ocupado for maior ou igual a 2000 retorna verdadeiro, se for menor retorna falso.
+	   * @returns true se o espaço for maior ou igual a 2000
+	   * @returns false se o espaço for menor que 2000
 	   */
-	
 	
 	public boolean atingiuCota() {
 		if (espacoOcupado >= 2000) {
@@ -86,11 +71,11 @@ public class ContaLaboratorio {
 		}
 	}
 	
-
     /**
-    * Retorna a String que representa os dados da Conta no laboratório
-    * “Nome do laboratório Espaço Ocupado/Cota”.
-    */
+     * Retorna a String que representa os dados da Conta no laboratório
+     * “Nome do laboratório Espaço Ocupado/Cota”.
+     * @returns a representação em String dos dados da Conta do Laboratório.
+     */
 	
 	public String toString() {
 		return this.nomeLaboratorio + " " + this.espacoOcupado + "/" + this.cota;
