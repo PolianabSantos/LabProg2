@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * 
  * A classe 'Agenda' serve para armazenar todos os contatos, nela é possível cadastrar, 
@@ -107,5 +109,39 @@ public class Agenda {
 			}
 		}
 		return listaDeContatos;
+	}
+
+	/**
+	 * O método gera um hashCode a partir do Array contatos que a Agenda guarda
+	 * return result O hashCode da agenda
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(contatos);
+		return result;
+	}
+
+	/**
+	 * O método 'equals' verifica se duas agendas são iguais
+	 * Duas agendas são iguais se tiverem os mesmos contatos nas mesmas posições do array
+	 * @param obj O objeto a ser comparado com a agenda
+	 * @return true or false Referente a comparação de duas agendas serem iguais
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Agenda other = (Agenda) obj;
+		if (!this.listarContatos().equals(other.listarContatos()))
+			return false;
+		return true;
 	}
 }

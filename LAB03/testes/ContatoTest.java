@@ -3,13 +3,24 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * Classe criada para testar os métodos utilizados na classe 'Contato'
+ * @author Walisson Farias - 117210716
+ *
+ */
+
 public class ContatoTest {
 
-	private Contato c;
+	private Contato contato1;
+	private Contato contato2;
+	private Contato contato3;
 
 	@Before
 	public void setUp() {
-		c = new Contato("Walisson", "Farias", "(83) 9988-9211");
+		contato1 = new Contato("Walisson", "Farias", "(83) 9988-9211");
+		contato2 = new Contato("Walisson", "Ferreira", "(83) 00000-0000");
+		contato3 = new Contato("Pedro", "Batista", "(83) 11111-1111");
 	}
 	
 	@Test(expected=NullPointerException.class)
@@ -59,17 +70,27 @@ public class ContatoTest {
 	
 	@Test
 	public void testeNome() {
-		assertEquals(c.getNome(), "Walisson");
+		assertEquals(contato1.getNome(), "Walisson");
 	}
 	
 	@Test
 	public void testeSobrenome() {
-		assertEquals(c.getSobrenome(), "Farias");
+		assertEquals(contato1.getSobrenome(), "Farias");
 	}
 	
 	@Test
 	public void testeTelefone() {
-		assertEquals(c.getTelefone(), "(83) 9988-9211");
+		assertEquals(contato1.getTelefone(), "(83) 9988-9211");
+	}
+	
+	@Test
+	public void testeDoisContatosIguais() {
+		assertTrue(contato1.equals(contato2));
+	}
+	
+	@Test
+	public void testeDoisContatosDiferentes() {
+		assertFalse(contato2.equals(contato3));
 	}
 	
 }

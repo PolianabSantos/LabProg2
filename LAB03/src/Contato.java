@@ -62,4 +62,37 @@ public class Contato {
 		return this.getNome() + " " + this.getSobrenome();
 	}
 	
+	/**
+	 * Gera o hashCode do contato a partir do seu nome
+	 * @return int O hashCode do contato
+	 */
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
+	/**
+	 * O 'equals' avalia se dois objetos são iguais
+	 * Para dois objetos serem iguais, ambos tem que ter o mesmo nome
+	 * @param obj O objeto a ser comparado com o contato
+	 * @return true or false referente ao teste de igualdade entre os contatos.
+	 */
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Contato other = (Contato) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
 }
