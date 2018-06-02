@@ -4,6 +4,8 @@ public class Menu {
 
 	public static void main(String[] args) {
 		
+		Controle controle = new Controle();
+		
 		while (true) {
 			
 			System.out.println("(C)adastrar Aluno");
@@ -25,11 +27,73 @@ public class Menu {
 				String nome = sc.nextLine();
 				System.out.print("Curso: ");
 				String curso = sc.nextLine();
-				
-				// Se a matrícula já existe > Não cadastrar e exibir "MATRICULA JÁ CADASTRADA"
-				
+				Aluno aluno = new Aluno (matricula, nome, curso);
+				if (controle.verificaMatricula(matricula)) {
+					if (controle.existeAluno(matricula)) {
+						System.out.println("MATRÍCULA JÁ CADASTRADA!" + System.lineSeparator());
+					}
+					else {
+						controle.adicionaAluno(matricula, aluno);
+						System.out.println("CADASTRO REALIZADO!" + System.lineSeparator());
+					}
+				} else {
+					System.out.println("MATRÍCULA INVÁLIDA!" + System.lineSeparator());
+				}
 			} else if (opcao.equalsIgnoreCase("E")) {
-				System.out.println();
+				System.out.print("Matrícula: ");
+				String matricula = sc.nextLine();
+				if (controle.existeAluno(matricula)) {
+					System.out.println(controle.consultarAluno(matricula)  + System.lineSeparator());
+				}
+				else { System.out.println("Aluno não cadastrado."  + System.lineSeparator()); }
+			} else if (opcao.equalsIgnoreCase("N")) {
+				System.out.print("Grupo: ");
+				String nome = sc.nextLine();
+				Grupo grupo = new Grupo(nome.toLowerCase());
+				if (controle.existeGrupo(nome)) {
+					System.out.println("GRUPO JÁ CADASTRADO!" + System.lineSeparator());
+				}
+				else {
+					controle.adicionaGrupo(nome, grupo);
+					System.out.println("CADASTRO REALIZADO!" + System.lineSeparator());
+				}
+			} else if (opcao.equalsIgnoreCase("A")) {
+				System.out.print("(A)locar Aluno ou (I)mprimir Grupo? ");
+				String alocarimprimir = sc.nextLine();
+				if (alocarimprimir.equalsIgnoreCase("A")) {
+					System.out.print("Matrícula: ");
+					String matricula = sc.nextLine();
+					System.out.print("Grupo: ");
+					String nome = sc.nextLine();
+					if (controle.existeAluno(matricula)) {
+						if (controle.existeGrupo(nome)) {
+							controle.alocarAluno(matricula, nome.toLowerCase());
+							System.out.println("ALUNO ALOCADO!" + System.lineSeparator());
+						} else {
+							System.out.println("Aluno ou Grupo não cadastrado." + System.lineSeparator());
+						}
+					} else {
+						System.out.println("Aluno ou Grupo não cadastrado." + System.lineSeparator());
+					}
+				} else if (alocarimprimir.equalsIgnoreCase("I")) {
+					System.out.print("Grupo: ");
+					String nome_grupo = sc.nextLine();
+					if (controle.existeGrupo(nome_grupo.toLowerCase())) {
+						System.out.print(controle.imprimirGrupo(nome_grupo.toLowerCase()));
+					} else { System.out.println("Grupo não cadastrado." + System.lineSeparator()); }
+				}
+			} else if (opcao.equalsIgnoreCase("R")) {
+				System.out.print("Matricula: ");
+				String matricula = sc.nextLine();
+				if (controle.existeAluno(matricula)) {
+					controle.adicionarAlunoQueRespondeu(matricula);
+					System.out.println("ALUNO REGISTRADO!"+ System.lineSeparator());
+				}
+				else { System.out.println("Aluno não cadastrado." + System.lineSeparator()); }
+			} else if (opcao.equalsIgnoreCase("I")) {
+				System.out.println(controle.imprimirAlunosQueResponderam());
+			} else if (opcao.equalsIgnoreCase("O")) {
+				break;
 			}
 		}
 	}
