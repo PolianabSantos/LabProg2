@@ -7,7 +7,7 @@ public class Controle {
 	
 	private Map<String, Aluno> alunos;
 	private Map<String, Grupo> grupos;
-	private List<String> alunosquerespondem;
+	private List<Aluno> alunosquerespondem;
 
 	public Controle () {
 		this.alunos = new HashMap<>();
@@ -25,22 +25,22 @@ public class Controle {
 		return this.alunos.put(matricula, aluno);
 	}
 	
-	public Grupo adicionaGrupo(String nome, Grupo grupo) {
-		return this.grupos.put(nome, grupo);
-	}
-	
 	public boolean existeAluno(String matricula) {
 		return this.alunos.containsKey(matricula);
-	}
-	
-	public boolean existeGrupo(String nome) {
-		return this.grupos.containsKey(nome);
 	}
 	
 	public Aluno consultarAluno(String matricula) {
 	    return this.alunos.get(matricula);
 	}
 	
+	public Grupo adicionaGrupo(String nome, Grupo grupo) {
+		return this.grupos.put(nome, grupo);
+	}
+	
+	public boolean existeGrupo(String nome) {
+		return this.grupos.containsKey(nome.toLowerCase());
+	}
+
 	public void alocarAluno(String matricula, String nome) {
 		this.grupos.get(nome).alocarAluno(this.alunos.get(matricula));
 	}
@@ -49,16 +49,5 @@ public class Controle {
 		return this.grupos.get(nome).toString() + System.lineSeparator();
 	}
 	
-	public boolean adicionarAlunoQueRespondeu(String matricula) {
-	    return alunosquerespondem.add(matricula);
-	}
-
-	public String imprimirAlunosQueResponderam() {
-		String listagem = "";
-		for (int i = 0; i < alunosquerespondem.size(); i++) {
-			listagem += alunosquerespondem.get(i) + System.lineSeparator();
-		}
-		return listagem;
-	}
-
+	
 }

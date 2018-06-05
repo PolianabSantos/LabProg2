@@ -36,9 +36,8 @@ public class Menu {
 						controle.adicionaAluno(matricula, aluno);
 						System.out.println("CADASTRO REALIZADO!" + System.lineSeparator());
 					}
-				} else {
-					System.out.println("MATRÍCULA INVÁLIDA!" + System.lineSeparator());
-				}
+				} else { System.out.println("MATRÍCULA INVÁLIDA!" + System.lineSeparator()); }
+
 			} else if (opcao.equalsIgnoreCase("E")) {
 				System.out.print("Matrícula: ");
 				String matricula = sc.nextLine();
@@ -46,17 +45,19 @@ public class Menu {
 					System.out.println(controle.consultarAluno(matricula)  + System.lineSeparator());
 				}
 				else { System.out.println("Aluno não cadastrado."  + System.lineSeparator()); }
+
 			} else if (opcao.equalsIgnoreCase("N")) {
 				System.out.print("Grupo: ");
 				String nome = sc.nextLine();
-				Grupo grupo = new Grupo(nome.toLowerCase());
+				Grupo grupo = new Grupo(nome);
 				if (controle.existeGrupo(nome)) {
 					System.out.println("GRUPO JÁ CADASTRADO!" + System.lineSeparator());
 				}
 				else {
-					controle.adicionaGrupo(nome, grupo);
+					controle.adicionaGrupo(nome.toLowerCase(), grupo);
 					System.out.println("CADASTRO REALIZADO!" + System.lineSeparator());
 				}
+
 			} else if (opcao.equalsIgnoreCase("A")) {
 				System.out.print("(A)locar Aluno ou (I)mprimir Grupo? ");
 				String alocarimprimir = sc.nextLine();
@@ -70,7 +71,7 @@ public class Menu {
 							controle.alocarAluno(matricula, nome.toLowerCase());
 							System.out.println("ALUNO ALOCADO!" + System.lineSeparator());
 						} else {
-							System.out.println("Aluno ou Grupo não cadastrado." + System.lineSeparator());
+							System.out.println("Grupo não cadastrado." + System.lineSeparator());
 						}
 					} else {
 						System.out.println("Aluno ou Grupo não cadastrado." + System.lineSeparator());
@@ -82,16 +83,19 @@ public class Menu {
 						System.out.print(controle.imprimirGrupo(nome_grupo.toLowerCase()));
 					} else { System.out.println("Grupo não cadastrado." + System.lineSeparator()); }
 				}
+
 			} else if (opcao.equalsIgnoreCase("R")) {
 				System.out.print("Matricula: ");
 				String matricula = sc.nextLine();
 				if (controle.existeAluno(matricula)) {
-					controle.adicionarAlunoQueRespondeu(matricula);
+					//controle.adicionarAlunoQueRespondeu(matricula);
 					System.out.println("ALUNO REGISTRADO!"+ System.lineSeparator());
 				}
 				else { System.out.println("Aluno não cadastrado." + System.lineSeparator()); }
+
 			} else if (opcao.equalsIgnoreCase("I")) {
-				System.out.println(controle.imprimirAlunosQueResponderam());
+				//controle.imprimirAlunosQueResponderam();
+
 			} else if (opcao.equalsIgnoreCase("O")) {
 				break;
 			}
