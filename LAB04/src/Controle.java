@@ -42,43 +42,92 @@ public class Controle {
 	}
 	
 	/**
-	 * O método 'adicionaAluno' serve para armazenar o aluno informado no array de alunos.
+	 * O método 'adicionaAluno' serve para armazenar o aluno informado no mapa de alunos.
 	 * @param matricula String contendo a matrícula do Aluno
-	 * @param aluno 
-	 * @return
+	 * @param aluno contendo a referência ao objeto Aluno
+	 * @return a confirmação do cadastro do aluno
 	 */
 	
 	public Aluno adicionaAluno(String matricula, Aluno aluno) {
 		return this.alunos.put(matricula, aluno);
 	}
 	
-	public boolean existeAluno(String matricula) {
+	/**
+	 * O método 'verificaExistenciaAluno' verifica se no mapa 'alunos' contém o aluno referenciado pela matrícula.
+	 * @param matricula A matrícula do aluno
+	 * @return a confirmação da existência do aluno no mapa
+	 */
+	
+	public boolean verificaExistenciaAluno(String matricula) {
 		return this.alunos.containsKey(matricula);
 	}
+	
+	/**
+	 * O método 'consultarAluno' exibe um aluno referenciado pela matrícula
+	 * @param matricula A matrícula do aluno
+	 * @return representação do aluno referenciado pela matrícula
+	 */
 	
 	public Aluno consultarAluno(String matricula) {
 	    return this.alunos.get(matricula);
 	}
 	
+	/**
+	 * O método 'adicionaGrupo' serve para armazenar o grupo informado no mapa de grupos.
+	 * @param nome String contendo o nome do Grupo;
+	 * @param grupo contendo a referência do objeto Grupo
+	 * @return a confirmação do cadastro do grupo
+	 */
+	
 	public Grupo adicionaGrupo(String nome, Grupo grupo) {
 		return this.grupos.put(nome, grupo);
 	}
 	
-	public boolean existeGrupo(String nome) {
+	/**
+	 * O método 'verificaExistenciaGrupo' verifica se no mapa 'grupos' contém o grupo referenciado pelo nome.
+	 * @param nome O nome do grupo
+	 * @return a confirmação da existênia do grupo no mapa
+	 */
+	
+	public boolean verificaExistenciaGrupo(String nome) {
 		return this.grupos.containsKey(nome.toLowerCase());
 	}
 
+	/**
+	 * O método 'alocarAluno' insere um dado aluno em um dado grupo
+	 * @param matricula A matrícula do aluno
+	 * @param nome O nome do grupo
+	 */
+	
 	public void alocarAluno(String matricula, String nome) {
 		this.grupos.get(nome).alocarAluno(this.alunos.get(matricula));
 	}
 	
+	/**
+	 * O método 'imprimirGrupo' imprime os alunos do grupo dado como parâmetro;
+	 * @param nome O nome do grupo que contém os alunos a serem impressos
+	 * @return representação .toString() dos alunos do grupo
+	 */
+	
 	public String imprimirGrupo(String nome) {
 		return this.grupos.get(nome).toString() + System.lineSeparator();
-}
+	}
+	
+	/**
+	 * O método 'adicionaAlunoQueRespondeu' insere no ArrayList 'alunosqueRespondem'
+	 * o aluno referenciado pela matrícula.
+	 * @param matricula A matrícula do aluno
+	 */
 	
 	public void adicionaAlunoQueRespondeu(String matricula) {
 		this.alunosQueRespondem.add(this.alunos.get(matricula));
 	}
+	
+	/**
+	 * O método 'listarAlunosQueResponderam' lista todos os alunos, em ordem de inserção, que responderam
+	 * as questões no quadro.
+	 * @return A representação em string dos alunos que respnderam as questões no quadro.
+	 */
 	
 	public String listarAlunosQueResponderam() {
 		String listagem = "";

@@ -1,8 +1,22 @@
+/**
+ * A classe 'Aluno' representa um aluno que tem matrícula, nome e curso como atributos.
+ * @author Walisson Farias - 117210712
+ */
+
 public class Aluno {
 	
 	private String matricula;
 	private String nome;
 	private String curso;
+	
+	/**
+	 * Constrói um aluno a partir da sua mátricula, nome e curso
+	 * Antes de construir, os métodos 'validaStringNaoVazia' e 'validaStringNaoNula' da classe Validador
+	 * são utilizados para validar os 3 parâmetros informados.
+	 * @param matricula A matrícula do aluno
+	 * @param nome O nome do aluno
+	 * @param curso O curso do aluno.
+	 */
 	
 	public Aluno (String matricula, String nome, String curso) {
 		
@@ -22,6 +36,11 @@ public class Aluno {
 	public String getNome() { return this.nome; }
 	public String getCurso() { return this.curso; }
 	
+	/**
+	 * Gera o hashCode do aluno a partir da sua matrícula
+	 * @return int HashCode do aluno
+	 */
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -29,6 +48,13 @@ public class Aluno {
 		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
 		return result;
 	}
+	
+	/**
+	 * O método 'equals' avalia se dois objetos são iguais
+	 * Para dois objetos serem iguais, ambos tem que ter a mesma matrícula
+	 * @param obj O objeto a ser comparado com o aluno
+	 * @return true or false referente ao teste de igualdade entre os alunos.
+	 */
 
 	@Override
 	public boolean equals(Object obj) {
@@ -46,6 +72,11 @@ public class Aluno {
 			return false;
 		return true;
 	}
+	
+	/**
+	 * Gera uma representação em String dos dados do aluno
+	 * contendo matrícula, nome e curso do aluno.
+	 */
 
 	public String toString() {
 		return "Aluno: " + this.getMatricula() + " - " + this.getNome() + " - " + this.getCurso();
