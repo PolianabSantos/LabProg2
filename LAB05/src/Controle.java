@@ -1,19 +1,16 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Controle {
 	
 	private int caixa;
 	private double taxa;
-	private int idAtual;
-	private Map<Integer, Cenario> cenarios;
-	
+	private List<Cenario> cenarios;
 	
 	public Controle(int caixa, double taxa) {
 		this.caixa = caixa;
 		this.taxa = taxa;
-		this.cenarios = new HashMap<Integer, Cenario>();
-		this.idAtual = 0;
+		this.cenarios = new ArrayList<>();
 	}
 	
 	public int getCaixa() {
@@ -22,22 +19,25 @@ public class Controle {
 
 	public int cadastraCenario(String descricao) {
 		Cenario cenario = new Cenario(descricao);
-		this.cenarios.put(idAtual, cenario);
-		this.idAtual++;
-		return this.idAtual;
+		this.cenarios.add(cenario);
+		return this.cenarios.size();
 	}
 	
 	public String exibeCenario(int cenario) {
-	    return this.cenarios.get(cenario).toString();
+	    return this.cenarios.get(cenario-1).toString();
 	}
 	
 	public String listarCenariosCadastrados() {
-		// Criar o arraylist dentro do metodo
 		String listagem = "";
-		for (int i = 0; i < cenarios.size(); i++) {
-			listagem += i+1 + ". " + cenarios.get(i) + System.lineSeparator();
+		for (Cenario cenario : cenarios) {
+			listagem += cenario.toString() + System.lineSeparator();
 		}
 		return listagem;
 	}
 	
-}
+	public void cadastrarAposta(int cenario, String nomeApostador, int valorAposta, String previsao) {
+		this.cenarios.get(cenario-1).cadastraAposta(nomeApostador, valorAposta, previsao);
+	}
+	
+	public int valorTotalDeApostas(int cenario) {
+		this.cenarios.get(cenario-1).

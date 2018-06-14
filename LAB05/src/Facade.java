@@ -22,4 +22,20 @@ public class Facade {
 		return this.controle.listarCenariosCadastrados();
 	}
 	
+	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
+		this.controle.cadastrarAposta(cenario, apostador, valor, previsao);
+	}
+	
+	public int valorTotalDeApostas(int cenario) {
+		return 0;
+	}
+	
+	public int totalDeApostas(int cenario) {
+		return 0;
+	}
+	
+	public String exibeApostas(int cenario) {
+		return "a";
+	}
+	
 }
