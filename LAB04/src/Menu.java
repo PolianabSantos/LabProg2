@@ -33,7 +33,7 @@ public class Menu {
 						if (controle.verificaExistenciaAluno(matricula)) {
 							System.out.println("MATRÍCULA JÁ CADASTRADA!" + System.lineSeparator());
 						} else {
-							controle.adicionaAluno(matricula, aluno);
+							controle.cadastraAluno(matricula, aluno);
 							System.out.println("CADASTRO REALIZADO!" + System.lineSeparator());
 						}
 					} else {
@@ -56,7 +56,7 @@ public class Menu {
 					if (controle.verificaExistenciaGrupo(nome)) {
 						System.out.println("GRUPO JÁ CADASTRADO!" + System.lineSeparator());
 					} else {
-						controle.adicionaGrupo(nome.toLowerCase(), grupo);
+						controle.cadastraGrupo(nome.toLowerCase(), grupo);
 						System.out.println("CADASTRO REALIZADO!" + System.lineSeparator());
 					}
 
@@ -76,7 +76,7 @@ public class Menu {
 								System.out.println("Grupo não cadastrado." + System.lineSeparator());
 							}
 						} else {
-							System.out.println("Aluno não cadastrado.");
+							System.out.println("Aluno não cadastrado." + System.lineSeparator());
 							if (!(controle.verificaExistenciaGrupo(nome))) {
 								System.out.println("Grupo não cadastrado." + System.lineSeparator());
 							}

@@ -9,16 +9,14 @@ public class Aposta {
 		this.valor = valor;
 		this.previsao = previsao;
 	}
+	
+	public String getApostador() { return this.apostador; }
+	public double getValor() { return this.valor; }
+	public String getPrevisao() { return this.previsao; }
 
 	@Override
 	public String toString() {
-		return this.apostador + " - " + this.valor + " - " + this.previsao;
-	}
-	
-	public int valorTotalDeApostas() {
-		int soma = 0;
-		soma += valor;
-		return soma;
+		return this.getApostador() + " - " + this.getValor() + " - " + this.getPrevisao();
 	}
 	
 }

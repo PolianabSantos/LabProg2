@@ -40,4 +40,20 @@ public class Controle {
 	}
 	
 	public int valorTotalDeApostas(int cenario) {
-		this.cenarios.get(cenario-1).
+		return this.cenarios.get(cenario-1).valorTotalDeApostas();
+	}
+	
+	public int totalDeApostas(int cenario) {
+		return this.cenarios.get(cenario-1).totalDeApostas(cenario);
+	}
+	
+	public String exibeApostas(int cenario) {
+		return this.cenarios.get(cenario-1).exibeApostas(cenario);
+	}
+	
+	public void fecharAposta(int cenario, boolean ocorreu) {
+		this.cenarios.get(cenario-1).fechaAposta(ocorreu);
+	}
+	
+}
+

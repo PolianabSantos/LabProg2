@@ -42,13 +42,13 @@ public class Controle {
 	}
 	
 	/**
-	 * O método 'adicionaAluno' serve para armazenar o aluno informado no mapa de alunos.
+	 * O método 'cadastraAluno' serve para armazenar o aluno informado no mapa de alunos.
 	 * @param matricula String contendo a matrícula do Aluno
 	 * @param aluno contendo a referência ao objeto Aluno
 	 * @return a confirmação do cadastro do aluno
 	 */
 	
-	public Aluno adicionaAluno(String matricula, Aluno aluno) {
+	public Aluno cadastraAluno(String matricula, Aluno aluno) {
 		return this.alunos.put(matricula, aluno);
 	}
 	
@@ -73,13 +73,13 @@ public class Controle {
 	}
 	
 	/**
-	 * O método 'adicionaGrupo' serve para armazenar o grupo informado no mapa de grupos.
+	 * O método 'cadastraGrupo' serve para armazenar o grupo informado no mapa de grupos.
 	 * @param nome String contendo o nome do Grupo;
 	 * @param grupo contendo a referência do objeto Grupo
 	 * @return a confirmação do cadastro do grupo
 	 */
 	
-	public Grupo adicionaGrupo(String nome, Grupo grupo) {
+	public Grupo cadastraGrupo(String nome, Grupo grupo) {
 		return this.grupos.put(nome, grupo);
 	}
 	

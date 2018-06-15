@@ -79,6 +79,11 @@ public class AlunoTest {
 	}
 	
 	@Test
+	public void testeCurso() {
+		assertEquals(alunoteste.getCurso(), "Computação");
+	}
+	
+	@Test
 	public void testeDoisAlunosIguais() {
 		assertTrue(alunoteste.equals(alunoteste2));
 	}
@@ -88,5 +93,4 @@ public class AlunoTest {
 		assertFalse(alunoteste.equals(alunoteste3));
 	}
 	
-
 }

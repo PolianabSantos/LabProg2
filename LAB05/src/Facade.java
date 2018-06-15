@@ -27,15 +27,19 @@ public class Facade {
 	}
 	
 	public int valorTotalDeApostas(int cenario) {
-		return 0;
+		return this.controle.valorTotalDeApostas(cenario);
 	}
 	
 	public int totalDeApostas(int cenario) {
-		return 0;
+		return this.controle.totalDeApostas(cenario);
 	}
 	
 	public String exibeApostas(int cenario) {
-		return "a";
+		return this.controle.exibeApostas(cenario);
+	}
+	
+	public void fecharAposta(int cenario, boolean ocorreu) {
+		
 	}
 	
 }
