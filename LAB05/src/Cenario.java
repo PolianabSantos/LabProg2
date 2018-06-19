@@ -3,21 +3,18 @@ import java.util.List;
 
 public class Cenario {
 	
-	private int id;
 	private String descricao;
-	private Estado estado;
+	private String estado;
 	private List<Aposta> apostas;
 	
 	public Cenario(String descricao) {
-		this.id = id;
 		this.descricao = "";
-		this.estado = new Estado("Não finalizado");
+		this.estado = "Não finalizado";
 		this.apostas = new ArrayList<>();
 	}
-	
-	public int getId() { return this.id; }
+
 	public String getDescricao() { return this.descricao; }
-	public Estado getEstado() {	return this.estado;	}
+	public String getEstado() {	return this.estado;	}
 	
 	public void cadastraAposta(String nomeApostador, int valorAposta, String previsao) {
 		Aposta aposta = new Aposta(nomeApostador, valorAposta, previsao);
@@ -46,10 +43,16 @@ public class Cenario {
 	
 	@Override
 	public String toString() {
-		return this.getId() + " - " + this.getDescricao() + " - " + this.getEstado();
+		return " - " + this.getDescricao() + " - " + this.getEstado();
 	}
 
 	public void fechaAposta(int cenario, boolean ocorreu) {
+		if (ocorreu) { this.estado = "Finalizado (Ocorreu).";
+		} else { this.estado = "Finalizado (Não ocorreu)."; }
+	}
+	
+	public int getCaixaCenario(int cenario) {
+		return 1;
 		
 	}
 

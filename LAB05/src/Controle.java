@@ -52,7 +52,7 @@ public class Controle {
 	}
 	
 	public void fecharAposta(int cenario, boolean ocorreu) {
-		this.cenarios.get(cenario-1).fechaAposta(ocorreu);
+		this.cenarios.get(cenario-1).fechaAposta(cenario, ocorreu);
 	}
 	
 }
