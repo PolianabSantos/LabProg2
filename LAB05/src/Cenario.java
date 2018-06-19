@@ -5,21 +5,19 @@ public class Cenario {
 	
 	private int id;
 	private String descricao;
-	private String estado;
+	private Estado estado;
 	private List<Aposta> apostas;
-	private boolean ocorreu;
 	
 	public Cenario(String descricao) {
 		this.id = id;
 		this.descricao = "";
-		this.estado = "Não finalizado";
+		this.estado = new Estado("Não finalizado");
 		this.apostas = new ArrayList<>();
-		this.ocorreu = false;
 	}
 	
 	public int getId() { return this.id; }
 	public String getDescricao() { return this.descricao; }
-	public String getEstado() { return this.estado; }
+	public Estado getEstado() {	return this.estado;	}
 	
 	public void cadastraAposta(String nomeApostador, int valorAposta, String previsao) {
 		Aposta aposta = new Aposta(nomeApostador, valorAposta, previsao);
@@ -51,15 +49,8 @@ public class Cenario {
 		return this.getId() + " - " + this.getDescricao() + " - " + this.getEstado();
 	}
 
-	public void fechaAposta(boolean ocorreu) {
-		if (ocorreu) {
-			int 
-			for (Aposta aposta : apostas) {
-				
-			}
-		}
+	public void fechaAposta(int cenario, boolean ocorreu) {
 		
 	}
-	
 
 }

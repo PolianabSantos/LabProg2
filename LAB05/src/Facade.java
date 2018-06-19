@@ -38,7 +38,7 @@ public class Facade {
 		return this.controle.exibeApostas(cenario);
 	}
 	
-	public void fecharAposta(int cenario, boolean ocorreu) {
+	public void fecharAposta(boolean ocorrencia) {
 		
 	}
 	
