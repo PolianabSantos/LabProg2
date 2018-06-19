@@ -1,11 +1,5 @@
 public class Validador {
 	
-	public static void validaInteiroMaiorQue0 (int dado) {
-		if (dado < 0) {
-			throw new IllegalArgumentException();
-		}
-	}
-	
 	/**
 	 * O métódo 'validaStringNaoVazia' analisa se uma variável do tipo String contém espaços vazios,
 	 * caso contenha espaços é criada uma exceção.
@@ -32,8 +26,8 @@ public class Validador {
 	}
 	
 	public static void validaDoubleMaiorQue0(double dado) {
-		if (dado <= 0) {
-			throw new IllegalArgumentException("Argumento inválido, valor menor que 0.");
-		}
-	}
+		if (dado <= 0) { throw new IllegalArgumentException("Argumento inválido, valor menor que 0."); } }
+	
+	public static void validaInteiroMaiorQue0 (int dado) {
+		if (dado < 0) { throw new IllegalArgumentException("Argumento inválido, valor menor que 0."); } }
 }

@@ -38,8 +38,8 @@ public class Facade {
 		return this.controle.exibeApostas(cenario);
 	}
 	
-	public void fecharAposta(boolean ocorrencia) {
-		
+	public void fecharAposta(int cenario, boolean ocorreu) {
+		this.controle.fecharAposta(cenario, ocorreu);
 	}
 	
 }

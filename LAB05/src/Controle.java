@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Controle {
 	
+	private int numeracao;
 	private int caixa;
 	private double taxa;
 	private List<Cenario> cenarios;
@@ -11,6 +12,7 @@ public class Controle {
 		this.caixa = caixa;
 		this.taxa = taxa;
 		this.cenarios = new ArrayList<>();
+		this.numeracao = 0;
 	}
 	
 	public int getCaixa() {
@@ -18,7 +20,8 @@ public class Controle {
 	}
 
 	public int cadastraCenario(String descricao) {
-		Cenario cenario = new Cenario(descricao);
+		this.numeracao++;
+		Cenario cenario = new Cenario(descricao, numeracao);
 		this.cenarios.add(cenario);
 		return this.cenarios.size();
 	}
