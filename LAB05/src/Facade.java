@@ -42,4 +42,11 @@ public class Facade {
 		this.controle.fecharAposta(cenario, ocorreu);
 	}
 	
+	public int getCaixaCenario(int cenario) {
+		return controle.valorCaixaCenario(cenario);
+	}
+	
+	public int getTotalRateioCenario(int cenario){
+		return controle.valorRateio(cenario);
+	 }
 }

@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import enums.Estado;
+
 public class Controle {
 	
 	private int numeracao;
@@ -17,6 +19,10 @@ public class Controle {
 	
 	public int getCaixa() {
 		return this.caixa;
+	}
+	
+	public double getTaxa() {
+		return this.taxa;
 	}
 
 	public int cadastraCenario(String descricao) {
@@ -55,7 +61,24 @@ public class Controle {
 	}
 	
 	public void fecharAposta(int cenario, boolean ocorreu) {
-		this.cenarios.get(cenario-1).fechaAposta(cenario, ocorreu);
+		if (this.cenarios.get(cenario).getEstado() == Estado.NAO_FINALIZADO) {
+			if (ocorreu) {
+				this.cenarios.get(cenario).setEstado(Estado.FINALIZADO_OCORREU);
+			} else {
+				this.cenarios.get(cenario).setEstado(Estado.FINALIZADO_N_OCORREU);
+			}
+
+		} else {
+			throw new IllegalArgumentException("Estado já finalizado!");
+		}
+	}
+	
+	public int valorCaixaCenario(int cenario) {
+		return this.cenarios.get(cenario).valorCaixaCenario(getTaxa(), cenario);
+	}
+	
+	public int valorRateio(int cenario) {
+		return this.cenarios.get(cenario).valorRateio(getTaxa(), cenario);
 	}
 	
 }

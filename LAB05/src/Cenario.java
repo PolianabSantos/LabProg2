@@ -11,7 +11,7 @@ public class Cenario {
 
 	public Cenario(String descricao, int numeracao) {
 		this.numeracao = numeracao;
-		this.descricao = "";
+		this.descricao = descricao;
 		this.estado = Estado.NAO_FINALIZADO;
 		this.apostas = new ArrayList<>();
 	}
@@ -23,6 +23,10 @@ public class Cenario {
 	public Estado getEstado() {
 		return this.estado;
 	}
+	
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 
 	public void cadastraAposta(String nomeApostador, int valorAposta, String previsao) {
 		Aposta aposta = new Aposta(nomeApostador, valorAposta, previsao);
@@ -32,7 +36,7 @@ public class Cenario {
 	public int valorTotalDeApostas() {
 		int valorTotal = 0;
 		for (Aposta aposta : this.apostas) {
-			valorTotal += aposta.getValor();
+			valorTotal += aposta.getValorApostaCentavos();
 		}
 		return valorTotal;
 	}
@@ -61,19 +65,19 @@ public class Cenario {
 			this.estado = Estado.FINALIZADO_N_OCORREU;
 		}
 	}
-	
+
 	public int somaApostasPerdedoras(int cenario) {
 		int soma = 0;
 		if (this.estado.equals(Estado.FINALIZADO_N_OCORREU)) {
 			for (Aposta aposta : apostas) {
-				if (aposta.getPrevisao().equals("N VAI ACONTECER")) {
-					soma += aposta.getValor();
+				if (aposta.getPrevisao() == true) {
+					soma += aposta.getValorApostaCentavos();
 				}
 			}
 		} else if (this.estado.equals(Estado.FINALIZADO_OCORREU)) {
 			for (Aposta aposta : apostas) {
-				if (aposta.getPrevisao().equals("VAI ACONTECER")) {
-					soma += aposta.getValor();
+				if (aposta.getPrevisao() == false) {
+					soma += aposta.getValorApostaCentavos();
 				}
 			}
 		} else {
@@ -81,11 +85,11 @@ public class Cenario {
 		}
 		return soma;
 	}
-	
+
 	public int valorCaixaCenario(double taxa, int cenario) {
 		return (int) Math.floor(this.somaApostasPerdedoras(cenario) * taxa);
 	}
-	
+
 	public int valorRateio(double taxa, int cenario) {
 		int valorRateio = somaApostasPerdedoras(cenario) - valorCaixaCenario(taxa, cenario);
 		return valorRateio;
@@ -112,5 +116,5 @@ public class Cenario {
 			return false;
 		return true;
 	}
-	
+
 }
