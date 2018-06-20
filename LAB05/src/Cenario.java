@@ -9,11 +9,18 @@ public class Cenario {
 	private List<Aposta> apostas;
 	private Estado estado;
 
-	public Cenario(String descricao, int numeracao) {
+	public Cenario(String descricao, int numeracao) {	
 		this.numeracao = numeracao;
+		if (descricao.trim().equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
+		}
 		this.descricao = descricao;
 		this.estado = Estado.NAO_FINALIZADO;
 		this.apostas = new ArrayList<>();
+	}
+
+	public int getNumeracao() {
+		return this.numeracao;
 	}
 
 	public String getDescricao() {
@@ -23,7 +30,7 @@ public class Cenario {
 	public Estado getEstado() {
 		return this.estado;
 	}
-	
+
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
@@ -48,14 +55,9 @@ public class Cenario {
 	public String exibeApostas(int cenario) {
 		String listagem = "";
 		for (Aposta aposta : apostas) {
-			listagem += aposta.toString() + System.lineSeparator();
+			listagem += aposta.toString();
 		}
 		return listagem;
-	}
-
-	@Override
-	public String toString() {
-		return this.numeracao + " - " + this.getDescricao() + " - " + this.getEstado();
 	}
 
 	public void fechaAposta(int cenario, boolean ocorreu) {
@@ -115,6 +117,19 @@ public class Cenario {
 		if (numeracao != other.numeracao)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		String stringCenario = "";
+		if (estado == Estado.FINALIZADO_OCORREU) {
+			stringCenario += getNumeracao() + " - " + this.descricao + " - " + "Finalizado (ocorreu)";
+		} else if (estado == Estado.FINALIZADO_N_OCORREU) {
+			stringCenario += getNumeracao() + " - " + this.descricao + " - " + "Finalizado (n ocorreu)";
+		} else if (estado == Estado.NAO_FINALIZADO) {
+			stringCenario += getNumeracao() + " - " + this.descricao + " - " + "Nao finalizado";
+		}
+		return stringCenario;
 	}
 
 }

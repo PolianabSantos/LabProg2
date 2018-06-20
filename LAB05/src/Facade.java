@@ -1,3 +1,5 @@
+import easyaccept.EasyAccept;
+
 public class Facade {
 	
 	Controle controle;
@@ -6,8 +8,8 @@ public class Facade {
 		this.controle = new Controle(caixa, taxa);
 	}
 	
-	public int recuperaCaixa() {
-		return this.controle.getCaixa();
+	public int getCaixa() {
+		return this.controle.getCaixaCenario();
 	}
 	
 	public int cadastrarCenario(String descricao) {
@@ -49,4 +51,9 @@ public class Facade {
 	public int getTotalRateioCenario(int cenario){
 		return controle.valorRateio(cenario);
 	 }
+	
+	public static void main(String[] args) {
+		args = new String[] {"Facade","EasyAccept/us1_test.txt", "EasyAccept/us2_test.txt", "EasyAccept/us3_test.txt", "EasyAccept/us4_test.txt"};
+		EasyAccept.main(args);
+	}
 }

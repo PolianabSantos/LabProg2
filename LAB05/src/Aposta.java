@@ -6,12 +6,6 @@ public class Aposta {
 
 	public Aposta(String apostador, int valor, String previsao) {
 
-		Validador.validaStringNaoVazia(apostador, "apostador");
-		Validador.validaInteiroMaiorQue0(valor);
-		Validador.validaStringNaoVazia(previsao, "previsão");
-		Validador.validaStringNaoNula(apostador);
-		Validador.validaStringNaoNula(previsao);
-
 		this.apostador = apostador;
 		this.valor = valor;
 		this.previsao = previsao;
