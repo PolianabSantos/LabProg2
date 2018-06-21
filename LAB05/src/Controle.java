@@ -185,15 +185,14 @@ public class Controle {
 		if (cenario > cenarios.size()) {
 			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario nao cadastrado");
 		}
-		if (this.cenarios.get(cenario).getEstado() == Estado.NAO_FINALIZADO) {
-			if (ocorreu) {
-				this.cenarios.get(cenario).setEstado(Estado.FINALIZADO_OCORREU);
-			} else {
-				this.cenarios.get(cenario).setEstado(Estado.FINALIZADO_N_OCORREU);
-			}
-		} else {
+		if (this.cenarios.get(cenario).getEstado() == Estado.FINALIZADO_OCORREU) {
 			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
 		}
+		if (this.cenarios.get(cenario).getEstado() == Estado.FINALIZADO_N_OCORREU) {
+			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
+		}
+		this.cenarios.get(cenario).fechaAposta(ocorreu);
+		this.caixa += this.valorCaixaCenario(cenario);
 	}
 	
 	/**
@@ -209,7 +208,7 @@ public class Controle {
 		if (cenario > cenarios.size()) {
 			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario nao cadastrado");
 		}
-		return this.cenarios.get(cenario).getCaixaCenario(getTaxa(), cenario);
+		return this.cenarios.get(cenario-1).getCaixaCenario(this.taxa);
 	}
 	
 	/**
@@ -227,7 +226,7 @@ public class Controle {
 			throw new IllegalArgumentException(
 					"Erro na consulta do total de rateio do cenario: Cenario nao cadastrado");
 		}
-		return this.cenarios.get(cenario).valorRateio(getTaxa(), cenario);
+		return this.cenarios.get(cenario-1).valorRateio(this.taxa);
 	}
 
 }

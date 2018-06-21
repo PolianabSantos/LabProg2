@@ -70,7 +70,7 @@ public class Cenario {
 	public int valorTotalDeApostas() {
 		int valorTotal = 0;
 		for (Aposta aposta : this.apostas) {
-			valorTotal += aposta.getValorApostaCentavos();
+			valorTotal += aposta.getValor();
 		}
 		return valorTotal;
 	}
@@ -107,7 +107,10 @@ public class Cenario {
 	 * @param ocorreu boolean que modifica o estado de um cenário.
 	 */
 
-	public void fechaAposta(int cenario, boolean ocorreu) {
+	public void fechaAposta(boolean ocorreu) {
+		if (this.estado != Estado.NAO_FINALIZADO) {	
+			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
+		}
 		if (ocorreu) {
 			this.estado = Estado.FINALIZADO_OCORREU;
 		} else {
@@ -115,22 +118,20 @@ public class Cenario {
 		}
 	}
 
-	public int somaApostasPerdedoras(int cenario) {
+	public int somaApostasPerdedoras() {
 		int soma = 0;
-		if (this.estado.equals(Estado.FINALIZADO_N_OCORREU)) {
+		if (this.estado == Estado.FINALIZADO_N_OCORREU) {
 			for (Aposta aposta : apostas) {
 				if (aposta.getPrevisao() == true) {
-					soma += aposta.getValorApostaCentavos();
+					soma += aposta.getValor();
 				}
 			}
 		} else if (this.estado.equals(Estado.FINALIZADO_OCORREU)) {
 			for (Aposta aposta : apostas) {
 				if (aposta.getPrevisao() == false) {
-					soma += aposta.getValorApostaCentavos();
+					soma += aposta.getValor();
 				}
 			}
-		} else {
-			throw new IllegalArgumentException("Cenário não finalizado.");
 		}
 		return soma;
 	}
@@ -142,8 +143,8 @@ public class Cenario {
 	 * @return int A representação do valor do caixa de um cenário.
 	 */
 	
-	public int getCaixaCenario(double taxa, int cenario) {
-		return (int) Math.floor(this.somaApostasPerdedoras(cenario) * taxa);
+	public int getCaixaCenario(double taxa) {
+		return (int) Math.floor(this.somaApostasPerdedoras() * taxa);
 	}
 	
 	/**
@@ -153,9 +154,8 @@ public class Cenario {
 	 * @return int A representação do valor de rateio de um cenário
 	 */
 
-	public int valorRateio(double taxa, int cenario) {
-		int valorRateio = somaApostasPerdedoras(cenario) - getCaixaCenario(taxa, cenario);
-		return valorRateio;
+	public int valorRateio(double taxa) {
+		return this.somaApostasPerdedoras() - this.getCaixaCenario(taxa);
 	}
 	
 	/**
