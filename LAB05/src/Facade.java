@@ -9,7 +9,7 @@ public class Facade {
 	}
 	
 	public int getCaixa() {
-		return this.controle.getCaixaCenario();
+		return this.controle.getCaixa();
 	}
 	
 	public int cadastrarCenario(String descricao) {

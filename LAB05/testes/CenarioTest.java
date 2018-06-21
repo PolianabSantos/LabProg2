@@ -110,7 +110,7 @@ public class CenarioTest {
 	@Test
 	public void valorCaixaCenarioTest() {
 		this.cenario1.setEstado(Estado.FINALIZADO_N_OCORREU);
-		assertTrue(this.cenario1.valorCaixaCenario(0.01, 1) == 15);
+		assertTrue(this.cenario1.getCaixaCenario(0.01, 1) == 15);
 	}
 	
 	@Test
