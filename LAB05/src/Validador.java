@@ -9,7 +9,7 @@ public class Validador {
 	
 	public static void validaStringNaoVazia(String dado, String mensagem) {
 		if (dado.trim().isEmpty()) {
-			throw new IllegalArgumentException("Argumento inválido, " + mensagem + " vazio(a)");
+			throw new IllegalArgumentException(mensagem);
 		}
 	}
 	
@@ -24,7 +24,7 @@ public class Validador {
 			throw new NullPointerException("Argumento inválido, valor nulo");
 		}
 	}
-	
+
 	public static void validaDoubleMaiorQue0(double dado) {
 		if (dado <= 0) { throw new IllegalArgumentException("Argumento inválido, valor menor que 0."); } }
 	

@@ -52,6 +52,10 @@ public class Facade {
 		return controle.valorRateio(cenario);
 	 }
 	
+	public int cadastrarCenario(String descricao, int bonus) {
+		return 0;
+	}
+	
 	public static void main(String[] args) {
 		args = new String[] {"Facade","EasyAccept/us1_test.txt", "EasyAccept/us2_test.txt", "EasyAccept/us3_test.txt", "EasyAccept/us4_test.txt"};
 		EasyAccept.main(args);

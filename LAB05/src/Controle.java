@@ -124,8 +124,7 @@ public class Controle {
 		if (!(previsao.equals("VAI ACONTECER") || (previsao.equals("N VAI ACONTECER")))) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao invalida");
 		}
-
-		this.cenarios.get(cenario - 1).cadastraAposta(nomeApostador, valorAposta, previsao);
+		this.cenarios.get(cenario-1).cadastraAposta(nomeApostador, valorAposta, previsao);
 	}
 	
 	/**
@@ -191,7 +190,7 @@ public class Controle {
 		if (this.cenarios.get(cenario).getEstado() == Estado.FINALIZADO_N_OCORREU) {
 			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
 		}
-		this.cenarios.get(cenario).fechaAposta(ocorreu);
+		this.cenarios.get(cenario-1).fechaAposta(ocorreu);
 		this.caixa += this.valorCaixaCenario(cenario);
 	}
 	
@@ -225,6 +224,9 @@ public class Controle {
 		if (cenario > cenarios.size()) {
 			throw new IllegalArgumentException(
 					"Erro na consulta do total de rateio do cenario: Cenario nao cadastrado");
+		}
+		if (this.cenarios.get(cenario-1).getEstado() == Estado.NAO_FINALIZADO) {
+			throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
 		}
 		return this.cenarios.get(cenario-1).valorRateio(this.taxa);
 	}

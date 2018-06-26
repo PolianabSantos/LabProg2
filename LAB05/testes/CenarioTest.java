@@ -98,25 +98,25 @@ public class CenarioTest {
 	@Test
 	public void valorApostasPerdedorasTest1() {
 		this.cenario1.setEstado(Estado.FINALIZADO_N_OCORREU);
-		assertTrue(this.cenario1.somaApostasPerdedoras(1) == 1500);
+		assertTrue(this.cenario1.somaApostasPerdedoras() == 1500);
 	}
 	
 	@Test
 	public void valorApostasPerdedorasTest2() {
 		this.cenario1.setEstado(Estado.FINALIZADO_OCORREU);
-		assertTrue(this.cenario1.somaApostasPerdedoras(1) == 0);
+		assertTrue(this.cenario1.somaApostasPerdedoras() == 0);
 	}
 	
 	@Test
 	public void valorCaixaCenarioTest() {
 		this.cenario1.setEstado(Estado.FINALIZADO_N_OCORREU);
-		assertTrue(this.cenario1.getCaixaCenario(0.01, 1) == 15);
+		assertTrue(this.cenario1.getCaixaCenario(0.01) == 15);
 	}
 	
 	@Test
 	public void valorRateioTest() {
 		this.cenario1.setEstado(Estado.FINALIZADO_N_OCORREU);
-		assertTrue(this.cenario1.valorRateio(0.01, 1) == 1485);
+		assertTrue(this.cenario1.valorRateio(0.01) == 1485);
 	}
 
 	@Test

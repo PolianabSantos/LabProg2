@@ -66,12 +66,12 @@ public class ApostaTest {
 
 	@Test
 	public void testeValorEmReais() {
-		assertEquals(aposta.getValorApostaReais(), 8.0, 0.0005);
+		assertEquals(aposta.getValor(), 8.0, 0.0005);
 	}
 	
 	@Test
 	public void testeValorEmCentavos() {
-		assertEquals(aposta.getValorApostaCentavos(), 800);
+		assertEquals(aposta.getValor(), 800);
 	}
 	
 	@Test
