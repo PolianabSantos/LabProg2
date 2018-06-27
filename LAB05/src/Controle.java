@@ -62,7 +62,26 @@ public class Controle {
 		this.cenarios.add(cenario);
 		return this.cenarios.size();
 	}
+	
+	/**
+	 * Esse outro método 'cadastraCenario' cadastra um cenário no ArrayList 'cenarios'
+	 * Cria-se um cenário com os parâmetros dados (descrição, numeração e bônus).
+	 * @param descricao A descrição do cenário.
+	 * @param bonus O bônus que será retirado imediatamente do caixa e colocado no cenário
+	 * @return O valor inteiro que representa a posição do cenário no Arraylist 'cenarios'
+	 */
 
+	public int cadastraCenario(String descricao, int bonus) {
+		if (bonus <= 0) {
+			throw new IllegalArgumentException("Erro no cadastro de cenario: Bonus invalido");
+		}
+		this.caixa -= bonus;
+		this.numeracao++;
+		Cenario cenario = new CenarioBonus(descricao, numeracao, bonus);
+		this.cenarios.add(cenario);
+		return this.cenarios.size();
+	}
+	
 	/**
 	 * O método 'exibeCenario' analisa o ArrayList 'cenarios' e retorna o método
 	 * 'toString' desse cenário informado no parâmetro.
@@ -77,7 +96,7 @@ public class Controle {
 		if (cenario > cenarios.size()) {
 			throw new IllegalArgumentException("Erro na consulta de cenario: Cenario nao cadastrado");
 		}
-		return this.cenarios.get(cenario - 1).toString();
+		return this.cenarios.get(cenario-1).toString();
 	}
 
 	/**
@@ -230,5 +249,6 @@ public class Controle {
 		}
 		return this.cenarios.get(cenario-1).valorRateio(this.taxa);
 	}
+
 
 }

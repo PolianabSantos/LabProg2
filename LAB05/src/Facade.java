@@ -53,11 +53,15 @@ public class Facade {
 	 }
 	
 	public int cadastrarCenario(String descricao, int bonus) {
-		return 0;
+		return controle.cadastraCenario(descricao, bonus);
 	}
 	
 	public static void main(String[] args) {
-		args = new String[] {"Facade","EasyAccept/us1_test.txt", "EasyAccept/us2_test.txt", "EasyAccept/us3_test.txt", "EasyAccept/us4_test.txt"};
+		Controle controle = new Controle(1000, 0.02);
+		controle.cadastraCenario("aa", 5000);
+		controle.exibeCenario(1);
+		args = new String[] { "Facade", "EasyAccept/us1_test.txt", "EasyAccept/us2_test.txt", "EasyAccept/us3_test.txt",
+				"EasyAccept/us4_test.txt", "EasyAccept/us5_test.txt"};
 		EasyAccept.main(args);
 	}
 }
