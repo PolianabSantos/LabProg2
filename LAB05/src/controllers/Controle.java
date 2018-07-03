@@ -1,9 +1,15 @@
 package controllers;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import enums.Estado;
 import models.Cenario;
 import models.CenarioBonus;
+import models.CenarioPorApostas;
+import models.CenarioPorCadastro;
+import models.CenarioPorNome;
 
 /**
  * Representação de um sistema de apostas
@@ -20,12 +26,16 @@ public class Controle {
 	private int caixa;
 	private double taxa;
 	private List<Cenario> cenarios;
+	private Comparator<Cenario> ordemAtrib;
 
 	/**
 	 * Constrói um Controle com um valor de caixa e um valor de taxa. O ArrayList é
 	 * iniciado e a numeração é iniciada com valor 0.
-	 * @param caixa Valor inteiro que representa o caixa
-	 * @param taxa Valor double que representa a taxa
+	 * 
+	 * @param caixa
+	 *            Valor inteiro que representa o caixa
+	 * @param taxa
+	 *            Valor double que representa a taxa
 	 */
 
 	public Controle(int caixa, double taxa) {
@@ -48,7 +58,7 @@ public class Controle {
 	public double getTaxa() {
 		return this.taxa;
 	}
-	
+
 	public int getQuantidadeCenarios() {
 		return this.cenarios.size();
 	}
@@ -56,8 +66,11 @@ public class Controle {
 	/**
 	 * O método 'cadastraCenario' cadastra um cenário no ArrayList 'cenarios'
 	 * Cria-se um cenário com os parâmetros dados (descrição e numeração).
-	 * @param descricao A descrição do cenário.
-	 * @return O valor inteiro que representa a posição do cenário no Arraylist 'cenarios'
+	 * 
+	 * @param descricao
+	 *            A descrição do cenário.
+	 * @return O valor inteiro que representa a posição do cenário no Arraylist
+	 *         'cenarios'
 	 */
 
 	public int cadastraCenario(String descricao) {
@@ -65,13 +78,19 @@ public class Controle {
 		this.cenarios.add(cenario);
 		return this.cenarios.size();
 	}
-	
+
 	/**
-	 * Esse outro método 'cadastraCenario' cadastra um cenário no ArrayList 'cenarios'
-	 * Cria-se um cenário com os parâmetros dados (descrição, numeração e bônus).
-	 * @param descricao A descrição do cenário.
-	 * @param bonus O bônus que será retirado imediatamente do caixa e colocado no cenário
-	 * @return O valor inteiro que representa a posição do cenário no Arraylist 'cenarios'
+	 * Esse outro método 'cadastraCenario' cadastra um cenário no ArrayList
+	 * 'cenarios' Cria-se um cenário com os parâmetros dados (descrição, numeração e
+	 * bônus).
+	 * 
+	 * @param descricao
+	 *            A descrição do cenário.
+	 * @param bonus
+	 *            O bônus que será retirado imediatamente do caixa e colocado no
+	 *            cenário
+	 * @return O valor inteiro que representa a posição do cenário no Arraylist
+	 *         'cenarios'
 	 */
 
 	public int cadastraCenario(String descricao, int bonus) {
@@ -83,11 +102,13 @@ public class Controle {
 		this.cenarios.add(cenario);
 		return this.cenarios.size();
 	}
-	
+
 	/**
 	 * O método 'exibeCenario' analisa o ArrayList 'cenarios' e retorna o método
 	 * 'toString' desse cenário informado no parâmetro.
-	 * @param cenario inteiro que representa um cenário
+	 * 
+	 * @param cenario
+	 *            inteiro que representa um cenário
 	 * @return String contendo a representação de um cenário
 	 */
 
@@ -96,9 +117,10 @@ public class Controle {
 			throw new IllegalArgumentException("Erro na consulta de cenario: Cenario invalido");
 		}
 		if (cenario > cenarios.size()) {
-			throw new IllegalArgumentException("Erro na consulta de cenario: Cenario nao cadastrado");
+			throw new IllegalArgumentException(
+					"Erro na consulta de cenarinew CenarioPorCadastro();o: Cenario nao cadastrado");
 		}
-		return cenario + " - " + this.cenarios.get(cenario-1).toString();
+		return cenario + " - " + this.cenarios.get(cenario - 1).toString();
 	}
 
 	/**
@@ -120,10 +142,15 @@ public class Controle {
 	 * O método 'cadastrarAposta' cadastra uma aposta com os parâmetros
 	 * (nomeApostador, valorAposta, previsao) no cenário dado como parâmetro, que
 	 * está dentro do ArrayList 'cenarios'.
-	 * @param cenario Inteiro que representa o número do cenário
-	 * @param apostador String que representa o nome do apostador
-	 * @param valor Inteiro que representa o valor apostado
-	 * @param previsao String que representa a previsão feita pelo apostador
+	 * 
+	 * @param cenario
+	 *            Inteiro que representa o número do cenário
+	 * @param apostador
+	 *            String que representa o nome do apostador
+	 * @param valor
+	 *            Inteiro que representa o valor apostado
+	 * @param previsao
+	 *            String que representa a previsão feita pelo apostador
 	 */
 
 	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
@@ -136,7 +163,16 @@ public class Controle {
 		if (apostador == null || (apostador.trim().equals(""))) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo");
 		}
-		if (valor <= 0) {
+		if (valor <= 0) { /**
+							 * O método 'alterarOrdem' altera a ordem de exibição de cenários cadastrados de
+							 * acordo com o parâmetro 'ordem' (do tipo String). Caso o parâmetro seja
+							 * 'POR_NUMERACAO': O array 'classeordenada' cria um cenário ordenado por ordem
+							 * de numeração. 'POR_APOSTAS': O array 'classeordenada' cria um cenário ordem
+							 * por ordem de quantidade de apostas. 'POR_NOME': O array 'classeordenada' cria
+							 * um cenário ordenado por ordem.
+							 * 
+							 * @param ordem
+							 */
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Valor nao pode ser menor ou igual a zero");
 		}
 		if (previsao == null || (previsao.trim().equals(""))) {
@@ -145,77 +181,103 @@ public class Controle {
 		if (!(previsao.equals("VAI ACONTECER") || (previsao.equals("N VAI ACONTECER")))) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao invalida");
 		}
-		this.cenarios.get(cenario-1).cadastraAposta(apostador, valor, previsao);
+		this.cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao);
 	}
-	
+
 	/**
-	 * O método 'cadastrarAposta' cadastra uma aposta com os parâmetros fornecidos (apostador, valor, previsao e valorSeguro)
-	 * Antes de cadastrar a aposta, é repassado ao caixa o valor do custo (fornecido como parâmetro)
-	 * @param cenario Inteiro que identifica o número do cenário (onde a aposta será cada cadastrada)
-	 * @param apostador String que representa o nome do apostador
-	 * @param valor Inteiro que representa o valor da aposta
-	 * @param valorSeguro Inteiro que representa o valor do seguro
-	 * @param previsao String que representa a previsão feita pelo apostador
-	 * @param custo Valor que será adicionado ao caixa do sistema
+	 * O método 'cadastrarAposta' cadastra uma aposta com os parâmetros fornecidos
+	 * (apostador, valor, previsao e valorSeguro) Antes de cadastrar a aposta, é
+	 * repassado ao caixa o valor do custo (fornecido como parâmetro)
+	 * 
+	 * @param cenario
+	 *            Inteiro que identifica o número do cenário (onde a aposta será
+	 *            cada cadastrada)
+	 * @param apostador
+	 *            String que representa o nome do apostador
+	 * @param valor
+	 *            Inteiro que representa o valor da aposta
+	 * @param valorSeguro
+	 *            Inteiro que representa o valor do seguro
+	 * @param previsao
+	 *            String que representa a previsão feita pelo apostador
+	 * @param custo
+	 *            Valor que será adicionado ao caixa do sistema
 	 * @return int Inteiro que identifica a aposta cadastrada.
 	 */
-	
+
 	public int cadastrarAposta(int cenario, String apostador, int valor, String previsao, int valorSeguro, int custo) {
 		if (apostador == null || (apostador.trim().equals(""))) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por valor: Apostador nao pode ser vazio ou nulo");
+			throw new IllegalArgumentException(
+					"Erro no cadastro de aposta assegurada por valor: Apostador nao pode ser vazio ou nulo");
 		}
 		if (cenario <= 0) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por valor: Cenario invalido");
 		}
 		if (valor <= 0) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por valor: Valor nao pode ser menor ou igual a zero");
+			throw new IllegalArgumentException(
+					"Erro no cadastro de aposta assegurada por valor: Valor nao pode ser menor ou igual a zero");
 		}
 		if (previsao == null || (previsao.trim().equals(""))) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por valor: Previsao nao pode ser vazia ou nula");
+			throw new IllegalArgumentException(
+					"Erro no cadastro de aposta assegurada por valor: Previsao nao pode ser vazia ou nula");
 		}
 		if (!(previsao.equals("VAI ACONTECER") || (previsao.equals("N VAI ACONTECER")))) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por valor: Previsao invalida");
 		}
 		this.caixa += custo;
-		return this.cenarios.get(cenario-1).cadastraAposta(apostador, valor, previsao, valorSeguro);
+		return this.cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao, valorSeguro);
 	}
-	
+
 	/**
-	 * O método 'cadastrarAposta' cadastra uma aposta com os parâmetros fornecidos (apostador, valor, previsao e taxa)
-	 * Antes de cadastrar a aposta, é repassado ao caixa o valor do custo (fornecido como parâmetro)
-	 * @param cenario Inteiro que identifica o número do cenário (onde a aposta será cada cadastrada)
-	 * @param apostador String que representa o nome do apostador
-	 * @param valor Inteiro que representa o valor da aposta
-	 * @param taxa Double que representa a taxa do seguro
-	 * @param previsao String que representa a previsão feita pelo apostador
-	 * @param custo Valor que será adicionado ao caixa do sistema
+	 * O método 'cadastrarAposta' cadastra uma aposta com os parâmetros fornecidos
+	 * (apostador, valor, previsao e taxa) Antes de cadastrar a aposta, é repassado
+	 * ao caixa o valor do custo (fornecido como parâmetro)
+	 * 
+	 * @param cenario
+	 *            Inteiro que identifica o número do cenário (onde a aposta será
+	 *            cada cadastrada)
+	 * @param apostador
+	 *            String que representa o nome do apostador
+	 * @param valor
+	 *            Inteiro que representa o valor da aposta
+	 * @param taxa
+	 *            Double que representa a taxa do seguro
+	 * @param previsao
+	 *            String que representa a previsão feita pelo apostador
+	 * @param custo
+	 *            Valor que será adicionado ao caixa do sistema
 	 * @return int Inteiro que identifica a aposta cadastrada.
 	 */
-	
+
 	public int cadastrarAposta(int cenario, String apostador, int valor, String previsao, double taxa, int custo) {
 		if (apostador == null || (apostador.trim().equals(""))) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por taxa: Apostador nao pode ser vazio ou nulo");
+			throw new IllegalArgumentException(
+					"Erro no cadastro de aposta assegurada por taxa: Apostador nao pode ser vazio ou nulo");
 		}
 		if (cenario <= 0) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por taxa: Cenario invalido");
 		}
 		if (valor <= 0) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por taxa: Valor nao pode ser menor ou igual a zero");
+			throw new IllegalArgumentException(
+					"Erro no cadastro de aposta assegurada por taxa: Valor nao pode ser menor ou igual a zero");
 		}
 		if (previsao == null || (previsao.trim().equals(""))) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por taxa: Previsao nao pode ser vazia ou nula");
+			throw new IllegalArgumentException(
+					"Erro no cadastro de aposta assegurada por taxa: Previsao nao pode ser vazia ou nula");
 		}
 		if (!(previsao.equals("VAI ACONTECER") || (previsao.equals("N VAI ACONTECER")))) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por taxa: Previsao invalida");
 		}
 		this.caixa += custo;
-		return this.cenarios.get(cenario-1).cadastraAposta(apostador, valor, previsao, taxa);
+		return this.cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao, taxa);
 	}
-	
+
 	/**
-	 * O método 'valorTotalDeApostas' chama o método 'valorTotalDeApostas'
-	 * da classe 'Cenario' e nele é calculado o valor total das apostas feitas em um cenário.
-	 * @param cenario Inteiro que representa o número de um cenário
+	 * O método 'valorTotalDeApostas' chama o método 'valorTotalDeApostas' da classe
+	 * 'Cenario' e nele é calculado o valor total das apostas feitas em um cenário.
+	 * 
+	 * @param cenario
+	 *            Inteiro que representa o número de um cenário
 	 * @return int Valor do total de apostas de um cenário.
 	 */
 
@@ -228,11 +290,14 @@ public class Controle {
 		}
 		return this.cenarios.get(cenario - 1).valorTotalDeApostas();
 	}
-	
+
 	/**
-	 * O método 'totalDeApostas' chama o método 'totalDeApostas'
-	 * da classe 'Cenario' e nele é calculado a quantidade de apostas de um cenário.
-	 * @param cenario Inteiro que representa o número de um cenário
+	 * O método 'totalDeApostas' chama o método 'totalDeApostas' da classe
+	 * 'Cenario'new CenarioPorCadastro(); e nele é calculado a quantidade de apostas
+	 * de um cenário.
+	 * 
+	 * @param cenario
+	 *            Inteiro que representa o número de um cenário
 	 * @return int Valor da quantidade de apostas de um cenário.
 	 */
 
@@ -243,23 +308,30 @@ public class Controle {
 		if (cenario > cenarios.size()) {
 			throw new IllegalArgumentException("Erro na consulta do total de apostas: Cenario nao cadastrado");
 		}
-		return this.cenarios.get(cenario - 1).totalDeApostas(cenario);
+		return this.cenarios.get(cenario - 1).totalDeApostas();
 	}
-	
+
 	/**
-	 * O método 'exibeApostas' gera a representação textual das apostas de um cenário (uma aposta por linha)
-	 * @param cenario Inteiro que representa o cenário a ser exibido
+	 * O método 'exibeApostas' gera a representação textual das apostas de um
+	 * cenário (uma aposta por linha)
+	 * 
+	 * @param cenario
+	 *            Inteiro que representa o cenário a ser exibido
 	 * @return String contendo a representação textual das apostas.
 	 */
 
 	public String exibeApostas(int cenario) {
-		return this.cenarios.get(cenario-1).exibeApostas(cenario);
+		return this.cenarios.get(cenario - 1).exibeApostas(cenario);
 	}
-	
+
 	/**
 	 * O método 'fecharAposta' finaliza um cenário e indica se ele ocorreu ou não.
-	 * @param cenario Inteiro que representa o cenário a ser finalizado
-	 * @param ocorreu Boleano que representa a ocorrência de um cenário (se ocorreu ou não).
+	 * 
+	 * @param cenario
+	 *            Inteiro que representa o cenário a ser finalizado
+	 * @param ocorreu
+	 *            Boleano que representa a ocorrência de um cenário (se ocorreu ou
+	 *            não).
 	 */
 
 	public void fecharAposta(int cenario, boolean ocorreu) {
@@ -275,14 +347,17 @@ public class Controle {
 		if (this.cenarios.get(cenario).getEstado() == Estado.FINALIZADO_N_OCORREU) {
 			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
 		}
-		this.cenarios.get(cenario-1).fechaAposta(ocorreu);
+		this.cenarios.get(cenario - 1).fechaAposta(ocorreu);
 		this.caixa += this.valorCaixaCenario(cenario);
-		this.caixa -= this.cenarios.get(cenario-1).pagamentoSeguros();
+		this.caixa -= this.cenarios.get(cenario - 1).pagamentoSeguros();
 	}
-	
+
 	/**
-	 * O método 'valorCaixaCenario' verifica o valor do caixa de um cenário dado como parâmetro.
-	 * @param cenario Inteiro que representa o número de um cenário
+	 * O método 'valorCaixaCenario' verifica o valor do caixa de um cenário dado
+	 * como parâmetro.
+	 * 
+	 * @param cenario
+	 *            Inteiro que representa o número de um cenário
 	 * @return int Representação do valor do caixa de um cenário
 	 */
 
@@ -293,13 +368,15 @@ public class Controle {
 		if (cenario > cenarios.size()) {
 			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario nao cadastrado");
 		}
-		return this.cenarios.get(cenario-1).getCaixaCenario(this.taxa);
+		return this.cenarios.get(cenario - 1).getCaixaCenario(this.taxa);
 	}
-	
+
 	/**
-	 * O método 'valorRateio calcula o valor de rateio do cenário encerrado que será destinado
-	 * a distribuição entre as apostas vencedoras.
-	 * @param cenario Inteiro que representa o número de um cenário
+	 * O método 'valorRateio calcula o valor de rateio do cenário encerrado que será
+	 * destinado a distribuição entre as apostas vencedoras.
+	 * 
+	 * @param cenario
+	 *            Inteiro que representa o número de um cenário
 	 * @return inteiro contendo o valor do rateio.
 	 */
 
@@ -311,29 +388,74 @@ public class Controle {
 			throw new IllegalArgumentException(
 					"Erro na consulta do total de rateio do cenario: Cenario nao cadastrado");
 		}
-		if (this.cenarios.get(cenario-1).getEstado() == Estado.NAO_FINALIZADO) {
-			throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
+		if (this.cenarios.get(cenario - 1).getEstado() == Estado.NAO_FINALIZADO) {
+			throw new IllegalArgumentException(
+					"Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
 		}
-		return this.cenarios.get(cenario-1).valorRateio(this.taxa);
+		return this.cenarios.get(cenario - 1).valorRateio(this.taxa);
 	}
+
+	/**
+	 * O método 'alterarSeguroValor' modifica o valor de determinada aposta
+	 * assegurada de um determinado cenário. new CenarioPorCadastro();
+	 * 
+	 * @param cenario
+	 *            Inteiro que representa o cenário
+	 * @param apostaAssegurada
+	 *            Inteiro que representa a aposta assegurada
+	 * @param valor
+	 *            Inteiro que representa o valor do seguro
+	 * @return int Inteiro que é a representação da alteração do valor
+	 */
 
 	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
-		return this.cenarios.get(cenario-1).alterarSeguroValor(apostaAssegurada, valor);
+		return this.cenarios.get(cenario - 1).alterarSeguroValor(apostaAssegurada, valor);
 	}
 
+	/**
+	 * O método 'alterarSeguroTaxa' modifica a taxa de determinada aposta assegurada
+	 * de um determinado cenário.
+	 * 
+	 * @param cenario
+	 *            Inteiro que representa o cenário
+	 * @param apostaAssegurada
+	 *            Inteiro que representa a aposta assegurada
+	 * @param taxa
+	 *            double que representa a taxa do seguro
+	 * @return int Inteiro que é a representação da alteração da taxa
+	 */
+
 	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
-		return this.cenarios.get(cenario-1).alterarSeguroTaxa(apostaAssegurada, taxa);
+		return this.cenarios.get(cenario - 1).alterarSeguroTaxa(apostaAssegurada, taxa);
 	}
+
+	/**
+	 * O método 'alterarOrdem' recebe o parâmetro ordem e verifica se o mesmo é
+	 * 'POR_NUMERACAO', 'POR_APOSTAS' ou 'POR_NOME' para criar um cenário e
+	 * atribuí-lo a variável 'ordemAtrib'.
+	 * @param ordem String que representa a opção de ordenação
+	 */
 
 	public void alterarOrdem(String ordem) {
 		if (ordem.equals("POR_NUMERACAO")) {
-			
+			this.ordemAtrib = new CenarioPorCadastro();
+		} else if (ordem.equals("POR_APOSTAS")) {
+			this.ordemAtrib = new CenarioPorApostas();
+		} else if (ordem.equals("POR_NOME")) {
+			this.ordemAtrib = new CenarioPorNome();
 		}
 	}
+	
+	/**
+	 * O método 'exibirCenarioOrdenado' 
+	 * @param cenario
+	 * @return
+	 */
 
 	public String exibirCenarioOrdenado(int cenario) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Cenario> aux = new ArrayList<>(this.cenarios);
+		Collections.sort(aux, ordemAtrib);
+		return "";
 	}
 
 }

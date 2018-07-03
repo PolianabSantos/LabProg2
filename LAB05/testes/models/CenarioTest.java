@@ -78,17 +78,17 @@ public class CenarioTest {
 
 	@Test
 	public void cadastraApostaSemSeguroTest() {
-		assertTrue(this.cenario1.totalDeApostas(1) == 2);
+		assertTrue(this.cenario1.totalDeApostas() == 2);
 	}
 	
 	@Test
 	public void cadastraApostaAsseguradaValor() {
-		assertTrue(this.cenario2.totalDeApostas(1) == 1);
+		assertTrue(this.cenario2.totalDeApostas() == 1);
 	}
 	
 	@Test
 	public void cadastraApostaAsseguradaTaxa() {
-		assertTrue(this.cenario3.totalDeApostas(1) == 1);
+		assertTrue(this.cenario3.totalDeApostas() == 1);
 	}
 
 	@Test

@@ -43,7 +43,7 @@ public class Cenario {
 	public String getDescricao() {
 		return this.descricao;
 	}
-	
+
 	public int getNumeracao() {
 		return this.numeracao;
 	}
@@ -144,7 +144,7 @@ public class Cenario {
 	 * @return a quantidade de apostas do cenário dado como parâmetro
 	 */
 
-	public int totalDeApostas(int cenario) {
+	public int totalDeApostas() {
 		return this.apostas.size();
 	}
 
@@ -259,6 +259,19 @@ public class Cenario {
 		return stringCenario;
 	}
 
+	/**
+	 * O método 'alterarSeguroValor' verifica se o inteiro que representa a aposta
+	 * assegurada é uma 'ApostaAssegurada', caso seja, modifica-se o valor do seguro
+	 * atual pelo valor dado como parâmetro. Caso o parâmetro 'apostaAssegurada' não
+	 * seja uma 'ApostaAssegurada', é criada uma exceção.
+	 * 
+	 * @param apostaAssegurada
+	 *            Inteiro que representa a numeração da aposta
+	 * @param valor
+	 *            Inteiro que representa o seguro
+	 * @return int Inteiro que representa a numeração da aposta
+	 */
+
 	public int alterarSeguroValor(int apostaAssegurada, int valor) {
 		if (this.apostas.get(apostaAssegurada - 1) instanceof ApostaAssegurada) {
 			((ApostaAssegurada) this.apostas.get(apostaAssegurada - 1)).setSeguro(valor);
@@ -266,6 +279,19 @@ public class Cenario {
 		}
 		throw new IllegalArgumentException("ESSA APOSTA NÃO POSSUI SEGURO!");
 	}
+
+	/**
+	 * O método 'alterarSeguroTaxa' verifica se o inteiro que representa a aposta
+	 * assegurada é uma 'ApostaAssegurada', caso seja, modifica-se a taxa do seguro
+	 * atual pela taxa dada como parâmetro. Caso o parâmetro 'apostaAssegurada' não
+	 * seja uma 'ApostaAssegurada', é criada uma exceção.
+	 * 
+	 * @param apostaAssegurada
+	 *            Inteiro que representa a numeração da aposta
+	 * @param taxa
+	 *            Double que representa a taxa
+	 * @return int Inteiro que representa a numeração da aposta
+	 */
 
 	public int alterarSeguroTaxa(int apostaAssegurada, double taxa) {
 		if (this.apostas.get(apostaAssegurada - 1) instanceof ApostaAssegurada) {
