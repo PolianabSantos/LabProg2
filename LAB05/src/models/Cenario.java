@@ -1,6 +1,9 @@
 package models;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import enums.Estado;
 
 /**
  * Representação de um Cenario onde serão criadas as apostas Cada cenário possui
@@ -15,6 +18,7 @@ public class Cenario {
 	private String descricao;
 	private List<Aposta> apostas;
 	public Estado estado;
+	public int numeracao;
 
 	/**
 	 * Constrói um cenario com os parâmetros 'descricao' e 'numeracao' O estado do
@@ -33,10 +37,15 @@ public class Cenario {
 		this.descricao = descricao;
 		this.estado = Estado.NAO_FINALIZADO;
 		this.apostas = new ArrayList<>();
+		this.numeracao = 0;
 	}
 
 	public String getDescricao() {
 		return this.descricao;
+	}
+	
+	public int getNumeracao() {
+		return this.numeracao;
 	}
 
 	public Estado getEstado() {
@@ -48,19 +57,67 @@ public class Cenario {
 	}
 
 	/**
-	 * O método 'cadastraAposta' cria uma aposta e armazena no ArrayList 'apostas'.
+	 * O método 'cadastraAposta' cria uma aposta e a armazena no ArrayList
+	 * 'apostas'.
 	 * 
-	 * @param nomeApostador
+	 * @param apostador
 	 *            String representando o nome do apostador
-	 * @param valorAposta
+	 * @param valor
 	 *            int representando o valor da aposta
 	 * @param previsao
 	 *            String representando a previsão dada pelo apostador
 	 */
 
-	public void cadastraAposta(String nomeApostador, int valorAposta, String previsao) {
-		Aposta aposta = new Aposta(nomeApostador, valorAposta, previsao);
+	public void cadastraAposta(String apostador, int valor, String previsao) {
+		this.numeracao++;
+		Aposta aposta = new Aposta(apostador, valor, previsao);
 		this.apostas.add(aposta);
+	}
+
+	/**
+	 * O método 'cadastraAposta' cria uma aposta e a armazena no ArrayList
+	 * 'apostas'. A diferença desse método para o anterior é que nesse também é
+	 * cadastrado um valor que representa o seguro da aposta.
+	 * 
+	 * @param apostador
+	 *            String que representa o nome do apostador
+	 * @param valor
+	 *            Inteiro representando o valor da aposta
+	 * @param previsao
+	 *            String representando a previsão dada pelo apostador
+	 * @param valorSeguro
+	 *            Inteiro representando o valor assegurado da aposta
+	 * @return int Representação do tamanho do ArrayList 'apostas'
+	 */
+
+	public int cadastraAposta(String apostador, int valor, String previsao, int valorSeguro) {
+		this.numeracao++;
+		Aposta aposta = new ApostaAssegurada(apostador, valor, previsao, valorSeguro);
+		this.apostas.add(aposta);
+		return this.apostas.size();
+	}
+
+	/**
+	 * O método 'cadastraAposta' cria uma aposta e a armazena no ArrayList
+	 * 'apostas'. A diferença desse método para o anterior é que não se cadastra o
+	 * valor assegurado e sim a taxa assegurada.
+	 * 
+	 * @param apostador
+	 *            String que representa o nome do apostador
+	 * @param valor
+	 *            Inteiro representando o valor da aposta
+	 * @param previsao
+	 *            String representando a previsão dada pelo apostador
+	 * @param taxa
+	 *            Double representando a taxa assegurada da aposta
+	 * @return int Representação do tamanho do ArrayList 'apostas'
+	 */
+
+	public int cadastraAposta(String apostador, int valor, String previsao, double taxa) {
+		this.numeracao++;
+		Aposta aposta = new ApostaAssegurada(apostador, valor, previsao, taxa);
+		this.apostas.add(aposta);
+		return this.apostas.size();
 	}
 
 	/**
@@ -202,10 +259,48 @@ public class Cenario {
 		return stringCenario;
 	}
 
-	public void cadastraApostaAssegurada(String apostador, int valor, String previsao, String tipoSeguro,
-			int valorSeguro, int custo) {
-		// TODO Auto-generated method stub
-		
+	public int alterarSeguroValor(int apostaAssegurada, int valor) {
+		if (this.apostas.get(apostaAssegurada - 1) instanceof ApostaAssegurada) {
+			((ApostaAssegurada) this.apostas.get(apostaAssegurada - 1)).setSeguro(valor);
+			return apostaAssegurada;
+		}
+		throw new IllegalArgumentException("ESSA APOSTA NÃO POSSUI SEGURO!");
+	}
+
+	public int alterarSeguroTaxa(int apostaAssegurada, double taxa) {
+		if (this.apostas.get(apostaAssegurada - 1) instanceof ApostaAssegurada) {
+			((ApostaAssegurada) this.apostas.get(apostaAssegurada - 1)).setSeguro(taxa);
+			return apostaAssegurada;
+		}
+		throw new IllegalArgumentException("ESSA APOSTA NÃO POSSUI SEGURO!");
+	}
+
+	public int totalApostasPerdedoras() {
+		if (this.estado.equals(Estado.NAO_FINALIZADO)) {
+			throw new IllegalArgumentException("Cenario ainda esta aberto");
+		}
+		int total = 0;
+		boolean ocorrencia = (this.estado.equals(Estado.FINALIZADO_OCORREU)) ? true : false;
+		for (Aposta aposta : this.apostas) {
+			if (aposta.getPrevisao() != ocorrencia) {
+				total += aposta.getValor();
+			}
+		}
+		return total;
+	}
+
+	public int pagamentoSeguros() {
+		if (this.estado.equals(Estado.NAO_FINALIZADO)) {
+			throw new IllegalArgumentException("Cenario ainda esta aberto");
+		}
+		int perdasGeradas = 0;
+		boolean ocorrencia = (this.estado.equals(Estado.FINALIZADO_OCORREU)) ? true : false;
+		for (Aposta aposta : this.apostas) {
+			if (aposta.getPrevisao() != ocorrencia) {
+				perdasGeradas += aposta.valorPerdido();
+			}
+		}
+		return this.totalApostasPerdedoras() - perdasGeradas;
 	}
 
 }

@@ -1,5 +1,7 @@
 package models;
 
-public abstract class Seguro {
+public interface Seguro {
 
+	int valorAssegurado(int valorAposta);
+	
 }

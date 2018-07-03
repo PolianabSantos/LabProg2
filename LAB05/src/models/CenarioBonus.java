@@ -1,4 +1,5 @@
 package models;
+import enums.Estado;
 
 public class CenarioBonus extends Cenario {
 

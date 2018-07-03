@@ -28,7 +28,7 @@ public class Aposta {
 	public String getApostador() {
 		return this.apostador;
 	}
-	
+
 	public boolean getPrevisao() {
 		if (this.previsao.equals("VAI ACONTECER")) {
 			return true;
@@ -39,6 +39,10 @@ public class Aposta {
 	
 	public int getValor() {
 		return this.valor;
+	}
+	
+	public int valorPerdido() {
+		return this.getValor();
 	}
 	
 	/**

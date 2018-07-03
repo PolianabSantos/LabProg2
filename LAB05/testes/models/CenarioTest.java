@@ -1,5 +1,5 @@
+package models;
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import enums.Estado;
@@ -8,13 +8,17 @@ public class CenarioTest {
 
 	private Cenario cenario1;
 	private Cenario cenario2;
+	private Cenario cenario3;
 
 	@Before
-	public void setUp() {
-		cenario1 = new Cenario("O Brasil vai ganhar a copa!", 1);
-		cenario2 = new Cenario("O Brasil não vai ganhar a copa!", 2);
+	public void criarCenario() {
+		cenario1 = new Cenario("O Brasil vai ganhar a copa!");
+		cenario2 = new Cenario("Alisson irá todos os dias no São João de CG!");
+		cenario3 = new Cenario("Thalyta vai tirar 10 na prova de LP2!");
 		cenario1.cadastraAposta("Alisson Farias", 500, "VAI ACONTECER");
 		cenario1.cadastraAposta("Thalyta Barbosa", 1000, "VAI ACONTECER");
+		cenario2.cadastraAposta("Alisson Farias", 100, "VAI ACONTECER", 900);
+		cenario3.cadastraAposta("Almir Crispiniano", 600, "N VAI ACONTECER", 0.1);
 	}
 
 	@Test
@@ -52,35 +56,39 @@ public class CenarioTest {
 	}
 
 	@Test
-	public void getNumeracaoTest() {
-		assertTrue(this.cenario1.getNumeracao() == 1);
-	}
-
-	@Test
 	public void toStringTestCenarioNaoFinalizado() {
 		this.cenario1.setEstado(Estado.NAO_FINALIZADO);
 		assertEquals(this.cenario1.toString(),
-				"1 - O Brasil vai ganhar a copa! - Nao finalizado");
+				"O Brasil vai ganhar a copa! - Nao finalizado");
 	}
 
 	@Test
 	public void toStringTestCenarioFinalizadoOcorreu() {
 		this.cenario1.setEstado(Estado.FINALIZADO_OCORREU);
 		assertEquals(this.cenario1.toString(),
-				"1 - O Brasil vai ganhar a copa! - Finalizado (ocorreu)");
+				"O Brasil vai ganhar a copa! - Finalizado (ocorreu)");
 	}
 
 	@Test
 	public void toStringTestCenarioFinalizadoNaoOcorreu() {
 		this.cenario1.setEstado(Estado.FINALIZADO_N_OCORREU);
 		assertEquals(this.cenario1.toString(),
-				"1 - O Brasil vai ganhar a copa! - Finalizado (n ocorreu)");
+				"O Brasil vai ganhar a copa! - Finalizado (n ocorreu)");
 	}
 
 	@Test
-	public void cadastraApostaTest() {
+	public void cadastraApostaSemSeguroTest() {
 		assertTrue(this.cenario1.totalDeApostas(1) == 2);
-		assertFalse(this.cenario1.totalDeApostas(1) == 1);
+	}
+	
+	@Test
+	public void cadastraApostaAsseguradaValor() {
+		assertTrue(this.cenario2.totalDeApostas(1) == 1);
+	}
+	
+	@Test
+	public void cadastraApostaAsseguradaTaxa() {
+		assertTrue(this.cenario3.totalDeApostas(1) == 1);
 	}
 
 	@Test
@@ -117,22 +125,6 @@ public class CenarioTest {
 	public void valorRateioTest() {
 		this.cenario1.setEstado(Estado.FINALIZADO_N_OCORREU);
 		assertTrue(this.cenario1.valorRateio(0.01) == 1485);
-	}
-
-	@Test
-	public void hashCodeTest1() {
-		assertTrue(cenario1.hashCode() != cenario2.hashCode());
-	}
-	
-	@Test
-	public void hashCodeTeste2() {
-		cenario2 = new Cenario("O Brasil não vai ganhar a copa!", 1);
-		assertTrue(cenario1.hashCode() == cenario2.hashCode());
-	}
-	
-	@Test
-	public void equalsTest() {
-		assertFalse(this.cenario1.equals(cenario2));
 	}
 	
 }
