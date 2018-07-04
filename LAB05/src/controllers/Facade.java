@@ -18,6 +18,10 @@ public class Facade {
 		return this.controle.cadastraCenario(descricao);
 	}
 
+	public int cadastrarCenario(String descricao, int bonus) {
+		return this.controle.cadastraCenario(descricao, bonus);
+	}
+
 	public String exibirCenario(int cenario) {
 		return this.controle.exibeCenario(cenario);
 	}
@@ -54,10 +58,6 @@ public class Facade {
 		return controle.valorRateio(cenario);
 	}
 
-	public int cadastrarCenario(String descricao, int bonus) {
-		return controle.cadastraCenario(descricao, bonus);
-	}
-
 	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valorSeguro,
 			int custo) {
 		return this.controle.cadastrarAposta(cenario, apostador, valor, previsao, valorSeguro, custo);
@@ -67,7 +67,7 @@ public class Facade {
 			int custo) {
 		return this.controle.cadastrarAposta(cenario, apostador, valor, previsao, taxa, custo);
 	}
-	
+
 	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
 		return this.controle.alterarSeguroValor(cenario, apostaAssegurada, valor);
 	}
@@ -85,9 +85,9 @@ public class Facade {
 	}
 
 	public static void main(String[] args) {
-		args = new String[] { "controllers.Facade", "EasyAccept/us1_test.txt", "EasyAccept/us2_test.txt",
-				"EasyAccept/us3_test.txt", "EasyAccept/us4_test.txt", "EasyAccept/us5_test.txt",
-				"EasyAccept/us6_test.txt", "EasyAccept/us7_test.txt" };
+		args = new String[] { "controllers.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt",
+				"acceptance_test/us3_test.txt", "acceptance_test/us4_test.txt", "acceptance_test/us5_test.txt",
+				"acceptance_test/us6_test.txt", "acceptance_test/us7_test.txt" };
 		EasyAccept.main(args);
 	}
 }

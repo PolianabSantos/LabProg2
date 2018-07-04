@@ -18,8 +18,8 @@ public class Cenario {
 	private String descricao;
 	private List<Aposta> apostas;
 	public Estado estado;
-	public int numeracao;
-
+	public int id;
+	
 	/**
 	 * Constrói um cenario com os parâmetros 'descricao' e 'numeracao' O estado do
 	 * cenário é iniciado como 'NAO_FINALIZADO'
@@ -30,22 +30,22 @@ public class Cenario {
 	 *            O número inteiro que representa o cenário
 	 */
 
-	public Cenario(String descricao) {
+	public Cenario(String descricao, int id) {
 		if (descricao.trim().equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
 		}
 		this.descricao = descricao;
 		this.estado = Estado.NAO_FINALIZADO;
 		this.apostas = new ArrayList<>();
-		this.numeracao = 0;
+		this.id = id;
 	}
 
+	public int getId() {
+		return this.id;
+	}
+	
 	public String getDescricao() {
 		return this.descricao;
-	}
-
-	public int getNumeracao() {
-		return this.numeracao;
 	}
 
 	public Estado getEstado() {
@@ -60,7 +60,7 @@ public class Cenario {
 	 * O método 'cadastraAposta' cria uma aposta e a armazena no ArrayList
 	 * 'apostas'.
 	 * 
-	 * @param apostador
+	 * @param apostadordels.Cenario cannot be cast to java.lang.Com
 	 *            String representando o nome do apostador
 	 * @param valor
 	 *            int representando o valor da aposta
@@ -69,7 +69,6 @@ public class Cenario {
 	 */
 
 	public void cadastraAposta(String apostador, int valor, String previsao) {
-		this.numeracao++;
 		Aposta aposta = new Aposta(apostador, valor, previsao);
 		this.apostas.add(aposta);
 	}
@@ -91,7 +90,6 @@ public class Cenario {
 	 */
 
 	public int cadastraAposta(String apostador, int valor, String previsao, int valorSeguro) {
-		this.numeracao++;
 		Aposta aposta = new ApostaAssegurada(apostador, valor, previsao, valorSeguro);
 		this.apostas.add(aposta);
 		return this.apostas.size();
@@ -114,7 +112,6 @@ public class Cenario {
 	 */
 
 	public int cadastraAposta(String apostador, int valor, String previsao, double taxa) {
-		this.numeracao++;
 		Aposta aposta = new ApostaAssegurada(apostador, valor, previsao, taxa);
 		this.apostas.add(aposta);
 		return this.apostas.size();
@@ -239,27 +236,6 @@ public class Cenario {
 	}
 
 	/**
-	 * Retorna a String que representa o Cenario. O formato da representação varia
-	 * conforme o estado, mas segue o padrão: "NUMERAÇÃO - DESCRIÇÃO DO CENARIO -
-	 * ESTADO ATUAL DO CENARIO"
-	 * 
-	 * @return A representação em String do cenário
-	 */
-
-	@Override
-	public String toString() {
-		String stringCenario = "";
-		if (estado == Estado.FINALIZADO_OCORREU) {
-			stringCenario += this.descricao + " - " + "Finalizado (ocorreu)";
-		} else if (estado == Estado.FINALIZADO_N_OCORREU) {
-			stringCenario += this.descricao + " - " + "Finalizado (n ocorreu)";
-		} else if (estado == Estado.NAO_FINALIZADO) {
-			stringCenario += this.descricao + " - " + "Nao finalizado";
-		}
-		return stringCenario;
-	}
-
-	/**
 	 * O método 'alterarSeguroValor' verifica se o inteiro que representa a aposta
 	 * assegurada é uma 'ApostaAssegurada', caso seja, modifica-se o valor do seguro
 	 * atual pelo valor dado como parâmetro. Caso o parâmetro 'apostaAssegurada' não
@@ -319,14 +295,35 @@ public class Cenario {
 		if (this.estado.equals(Estado.NAO_FINALIZADO)) {
 			throw new IllegalArgumentException("Cenario ainda esta aberto");
 		}
-		int perdasGeradas = 0;
+		int perdas = 0;
 		boolean ocorrencia = (this.estado.equals(Estado.FINALIZADO_OCORREU)) ? true : false;
 		for (Aposta aposta : this.apostas) {
 			if (aposta.getPrevisao() != ocorrencia) {
-				perdasGeradas += aposta.valorPerdido();
+				perdas += aposta.valorPerdido();
 			}
 		}
-		return this.totalApostasPerdedoras() - perdasGeradas;
+		return this.totalApostasPerdedoras() - perdas;
+	}
+	
+	/**
+	 * Retorna a String que representa o Cenario. O formato da representação varia
+	 * conforme o estado, mas segue o padrão: "NUMERAÇÃO - DESCRIÇÃO DO CENARIO -
+	 * ESTADO ATUAL DO CENARIO"
+	 * 
+	 * @return A representação em String do cenário
+	 */
+
+	@Override
+	public String toString() {
+		String stringCenario = "";
+		if (estado == Estado.FINALIZADO_OCORREU) {
+			stringCenario += getId() + " - " + this.descricao + " - " + "Finalizado (ocorreu)";
+		} else if (estado == Estado.FINALIZADO_N_OCORREU) {
+			stringCenario += getId() + " - " + this.descricao + " - " + "Finalizado (n ocorreu)";
+		} else if (estado == Estado.NAO_FINALIZADO) {
+			stringCenario += getId() + " - " + this.descricao + " - " + "Nao finalizado";
+		}
+		return stringCenario;
 	}
 
 }

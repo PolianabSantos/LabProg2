@@ -12,9 +12,9 @@ public class CenarioTest {
 
 	@Before
 	public void criarCenario() {
-		cenario1 = new Cenario("O Brasil vai ganhar a copa!");
-		cenario2 = new Cenario("Alisson irá todos os dias no São João de CG!");
-		cenario3 = new Cenario("Thalyta vai tirar 10 na prova de LP2!");
+		cenario1 = new Cenario("O Brasil vai ganhar a copa!", 1);
+		cenario2 = new Cenario("Alisson irá todos os dias no São João de CG!", 2);
+		cenario3 = new Cenario("Thalyta vai tirar 10 na prova de LP2!", 3);
 		cenario1.cadastraAposta("Alisson Farias", 500, "VAI ACONTECER");
 		cenario1.cadastraAposta("Thalyta Barbosa", 1000, "VAI ACONTECER");
 		cenario2.cadastraAposta("Alisson Farias", 100, "VAI ACONTECER", 900);
@@ -59,21 +59,21 @@ public class CenarioTest {
 	public void toStringTestCenarioNaoFinalizado() {
 		this.cenario1.setEstado(Estado.NAO_FINALIZADO);
 		assertEquals(this.cenario1.toString(),
-				"O Brasil vai ganhar a copa! - Nao finalizado");
+				"3 - O Brasil vai ganhar a copa! - Nao finalizado");
 	}
 
 	@Test
 	public void toStringTestCenarioFinalizadoOcorreu() {
 		this.cenario1.setEstado(Estado.FINALIZADO_OCORREU);
 		assertEquals(this.cenario1.toString(),
-				"O Brasil vai ganhar a copa! - Finalizado (ocorreu)");
+				"3 - O Brasil vai ganhar a copa! - Finalizado (ocorreu)");
 	}
 
 	@Test
 	public void toStringTestCenarioFinalizadoNaoOcorreu() {
 		this.cenario1.setEstado(Estado.FINALIZADO_N_OCORREU);
 		assertEquals(this.cenario1.toString(),
-				"O Brasil vai ganhar a copa! - Finalizado (n ocorreu)");
+				"3 - O Brasil vai ganhar a copa! - Finalizado (n ocorreu)");
 	}
 
 	@Test

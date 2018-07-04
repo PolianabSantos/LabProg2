@@ -29,8 +29,8 @@ public class Controle {
 	private Comparator<Cenario> ordemAtrib;
 
 	/**
-	 * Constrói um Controle com um valor de caixa e um valor de taxa. O ArrayList é
-	 * iniciado e a numeração é iniciada com valor 0.
+	 * Constrói um Controle com um valor de caixa e um valor de taxa. O
+	 * ArrayList é iniciado e a numeração é iniciada com valor 0.
 	 * 
 	 * @param caixa
 	 *            Valor inteiro que representa o caixa
@@ -45,10 +45,10 @@ public class Controle {
 		if (taxa < 0) {
 			throw new IllegalArgumentException("Erro na inicializacao: Taxa nao pode ser inferior a 0");
 		}
-
 		this.caixa = caixa;
 		this.taxa = taxa;
 		this.cenarios = new ArrayList<>();
+		this.ordemAtrib = new CenarioPorCadastro();
 	}
 
 	public int getCaixa() {
@@ -74,15 +74,15 @@ public class Controle {
 	 */
 
 	public int cadastraCenario(String descricao) {
-		Cenario cenario = new Cenario(descricao);
+		Cenario cenario = new Cenario(descricao, this.cenarios.size() + 1);
 		this.cenarios.add(cenario);
 		return this.cenarios.size();
 	}
 
 	/**
 	 * Esse outro método 'cadastraCenario' cadastra um cenário no ArrayList
-	 * 'cenarios' Cria-se um cenário com os parâmetros dados (descrição, numeração e
-	 * bônus).
+	 * 'cenarios' Cria-se um cenário com os parâmetros dados (descrição,
+	 * numeração e bônus).
 	 * 
 	 * @param descricao
 	 *            A descrição do cenário.
@@ -98,7 +98,7 @@ public class Controle {
 			throw new IllegalArgumentException("Erro no cadastro de cenario: Bonus invalido");
 		}
 		this.caixa -= bonus;
-		Cenario cenario = new CenarioBonus(descricao, bonus);
+		Cenario cenario = new CenarioBonus(descricao, bonus, this.cenarios.size() + 1);
 		this.cenarios.add(cenario);
 		return this.cenarios.size();
 	}
@@ -117,15 +117,14 @@ public class Controle {
 			throw new IllegalArgumentException("Erro na consulta de cenario: Cenario invalido");
 		}
 		if (cenario > cenarios.size()) {
-			throw new IllegalArgumentException(
-					"Erro na consulta de cenarinew CenarioPorCadastro();o: Cenario nao cadastrado");
+			throw new IllegalArgumentException("Erro na consulta de cenario: Cenario nao cadastrado");
 		}
-		return cenario + " - " + this.cenarios.get(cenario - 1).toString();
+		return this.cenarios.get(cenario - 1).toString();
 	}
 
 	/**
-	 * O método 'listarCenariosCadastrados' salva na variável 'listagem' todos os
-	 * cenários cadastrados até o momento.
+	 * O método 'listarCenariosCadastrados' salva na variável 'listagem' todos
+	 * os cenários cadastrados até o momento.
 	 * 
 	 * @return String contendo a representação de todos os cenários cadastrados.
 	 */
@@ -140,8 +139,8 @@ public class Controle {
 
 	/**
 	 * O método 'cadastrarAposta' cadastra uma aposta com os parâmetros
-	 * (nomeApostador, valorAposta, previsao) no cenário dado como parâmetro, que
-	 * está dentro do ArrayList 'cenarios'.
+	 * (nomeApostador, valorAposta, previsao) no cenário dado como parâmetro,
+	 * que está dentro do ArrayList 'cenarios'.
 	 * 
 	 * @param cenario
 	 *            Inteiro que representa o número do cenário
@@ -163,16 +162,7 @@ public class Controle {
 		if (apostador == null || (apostador.trim().equals(""))) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo");
 		}
-		if (valor <= 0) { /**
-							 * O método 'alterarOrdem' altera a ordem de exibição de cenários cadastrados de
-							 * acordo com o parâmetro 'ordem' (do tipo String). Caso o parâmetro seja
-							 * 'POR_NUMERACAO': O array 'classeordenada' cria um cenário ordenado por ordem
-							 * de numeração. 'POR_APOSTAS': O array 'classeordenada' cria um cenário ordem
-							 * por ordem de quantidade de apostas. 'POR_NOME': O array 'classeordenada' cria
-							 * um cenário ordenado por ordem.
-							 * 
-							 * @param ordem
-							 */
+		if (valor <= 0) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Valor nao pode ser menor ou igual a zero");
 		}
 		if (previsao == null || (previsao.trim().equals(""))) {
@@ -185,9 +175,10 @@ public class Controle {
 	}
 
 	/**
-	 * O método 'cadastrarAposta' cadastra uma aposta com os parâmetros fornecidos
-	 * (apostador, valor, previsao e valorSeguro) Antes de cadastrar a aposta, é
-	 * repassado ao caixa o valor do custo (fornecido como parâmetro)
+	 * O método 'cadastrarAposta' cadastra uma aposta com os parâmetros
+	 * fornecidos (apostador, valor, previsao e valorSeguro) Antes de cadastrar
+	 * a aposta, é repassado ao caixa o valor do custo (fornecido como
+	 * parâmetro)
 	 * 
 	 * @param cenario
 	 *            Inteiro que identifica o número do cenário (onde a aposta será
@@ -229,9 +220,9 @@ public class Controle {
 	}
 
 	/**
-	 * O método 'cadastrarAposta' cadastra uma aposta com os parâmetros fornecidos
-	 * (apostador, valor, previsao e taxa) Antes de cadastrar a aposta, é repassado
-	 * ao caixa o valor do custo (fornecido como parâmetro)
+	 * O método 'cadastrarAposta' cadastra uma aposta com os parâmetros
+	 * fornecidos (apostador, valor, previsao e taxa) Antes de cadastrar a
+	 * aposta, é repassado ao caixa o valor do custo (fornecido como parâmetro)
 	 * 
 	 * @param cenario
 	 *            Inteiro que identifica o número do cenário (onde a aposta será
@@ -273,8 +264,9 @@ public class Controle {
 	}
 
 	/**
-	 * O método 'valorTotalDeApostas' chama o método 'valorTotalDeApostas' da classe
-	 * 'Cenario' e nele é calculado o valor total das apostas feitas em um cenário.
+	 * O método 'valorTotalDeApostas' chama o método 'valorTotalDeApostas' da
+	 * classe 'Cenario' e nele é calculado o valor total das apostas feitas em
+	 * um cenário.
 	 * 
 	 * @param cenario
 	 *            Inteiro que representa o número de um cenário
@@ -293,8 +285,8 @@ public class Controle {
 
 	/**
 	 * O método 'totalDeApostas' chama o método 'totalDeApostas' da classe
-	 * 'Cenario'new CenarioPorCadastro(); e nele é calculado a quantidade de apostas
-	 * de um cenário.
+	 * 'Cenario'new CenarioPorCadastro(); e nele é calculado a quantidade de
+	 * apostas de um cenário.
 	 * 
 	 * @param cenario
 	 *            Inteiro que representa o número de um cenário
@@ -325,13 +317,14 @@ public class Controle {
 	}
 
 	/**
-	 * O método 'fecharAposta' finaliza um cenário e indica se ele ocorreu ou não.
+	 * O método 'fecharAposta' finaliza um cenário e indica se ele ocorreu ou
+	 * não.
 	 * 
 	 * @param cenario
 	 *            Inteiro que representa o cenário a ser finalizado
 	 * @param ocorreu
-	 *            Boleano que representa a ocorrência de um cenário (se ocorreu ou
-	 *            não).
+	 *            Boleano que representa a ocorrência de um cenário (se ocorreu
+	 *            ou não).
 	 */
 
 	public void fecharAposta(int cenario, boolean ocorreu) {
@@ -372,8 +365,8 @@ public class Controle {
 	}
 
 	/**
-	 * O método 'valorRateio calcula o valor de rateio do cenário encerrado que será
-	 * destinado a distribuição entre as apostas vencedoras.
+	 * O método 'valorRateio calcula o valor de rateio do cenário encerrado que
+	 * será destinado a distribuição entre as apostas vencedoras.
 	 * 
 	 * @param cenario
 	 *            Inteiro que representa o número de um cenário
@@ -413,8 +406,8 @@ public class Controle {
 	}
 
 	/**
-	 * O método 'alterarSeguroTaxa' modifica a taxa de determinada aposta assegurada
-	 * de um determinado cenário.
+	 * O método 'alterarSeguroTaxa' modifica a taxa de determinada aposta
+	 * assegurada de um determinado cenário.
 	 * 
 	 * @param cenario
 	 *            Inteiro que representa o cenário
@@ -430,32 +423,49 @@ public class Controle {
 	}
 
 	/**
-	 * O método 'alterarOrdem' recebe o parâmetro ordem e verifica se o mesmo é
-	 * 'POR_NUMERACAO', 'POR_APOSTAS' ou 'POR_NOME' para criar um cenário e
-	 * atribuí-lo a variável 'ordemAtrib'.
-	 * @param ordem String que representa a opção de ordenação
+	 * O método 'alterarOrdem' recebe o parâmetro ordem e verifica se o mesmo
+	 * equivale a "cadastro", "apostas" ou "nome". Se equivale a "cadastro",
+	 * ordemAtrib cria um cenario por ordem de cadastro; Se equivale a
+	 * "apostas", ordemAtrib cria um cenario por ordem de quantidade de apostas;
+	 * Se equivale a "nome", ordemAtrib cria um cenario por ordem lexográfica;
+	 *
+	 * @param ordem
+	 *            String representando a opção de ordenação
 	 */
 
 	public void alterarOrdem(String ordem) {
-		if (ordem.equals("POR_NUMERACAO")) {
+		if (ordem == null || (ordem.trim().equals(""))) {
+			throw new IllegalArgumentException("Erro ao alterar ordem: Ordem nao pode ser vazia ou nula");
+		}
+		if (ordem.equals("cadastro")) {
 			this.ordemAtrib = new CenarioPorCadastro();
-		} else if (ordem.equals("POR_APOSTAS")) {
+		} else if (ordem.equals("apostas")) {
 			this.ordemAtrib = new CenarioPorApostas();
-		} else if (ordem.equals("POR_NOME")) {
+		} else if (ordem.equals("nome")) {
 			this.ordemAtrib = new CenarioPorNome();
+		} else {
+			throw new IllegalArgumentException("Erro ao alterar ordem: Ordem invalida");
 		}
 	}
-	
+
 	/**
-	 * O método 'exibirCenarioOrdenado' 
-	 * @param cenario
-	 * @return
+	 * O método 'exibirCenarioOrdenado' faz uma cópia do ArrayList 'cenarios' e
+	 * atribui à variável auxiliar 'aux'. Chama-se o método '.sort' de
+	 * Collections, e ordena o Array 'aux' para a opção de ordenação contida em "ordemAtrib" 
+	 * @param cenario Inteiro que representa o cenário
+	 * @return String contendo a representação textual do cenário (ordenado)
 	 */
 
 	public String exibirCenarioOrdenado(int cenario) {
+		if (cenario <= 0) {
+			throw new IllegalArgumentException("Erro na consulta de cenario ordenado: Cenario invalido");
+		}
+		if (cenario > cenarios.size()) {
+			throw new IllegalArgumentException("Erro na consulta de cenario ordenado: Cenario nao cadastrado");
+		}
 		ArrayList<Cenario> aux = new ArrayList<>(this.cenarios);
 		Collections.sort(aux, ordemAtrib);
-		return "";
+		return aux.get(cenario-1).toString();
 	}
 
 }
